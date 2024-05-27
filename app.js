@@ -7,7 +7,7 @@ const morgan = require('morgan');
 const ejsMate = require('ejs-mate');
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
-const joi = require('joi');
+const { campgroundSchema } = require('./schema.js');
 
 mongoose.connect('mongodb://127.0.0.1:27017/yelpcamp')
     .then(() => {
@@ -30,6 +30,17 @@ app.use(methodOverride('__method'));
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+const validateCampground = (req, res, next) => {
+    const { error } = campgroundSchema.validate(req.body);
+    if (error) {
+        const msg = error.details.map(el => el.message).join(',');
+        throw new ExpressError(msg, 400);
+    }
+    else {
+        next();
+    }
+}
+
 app.get('/', (req, res) => {
     res.render('home');
 });
@@ -43,8 +54,8 @@ app.get('/campground/new', (req, res) => {
     res.render('campground/new')
 })
 
-app.post('/campground', catchAsync(async (req, res) => {
-    if (!req.body.campground) throw new ExpressError('Invalid Campground Data', 400);
+app.post('/campground', validateCampground, catchAsync(async (req, res) => {
+
     const newCampground = new Campground(req.body.campground);
     await newCampground.save();
     res.redirect(`/campground/${newCampground._id}`);
@@ -56,7 +67,7 @@ app.get('/campground/:id', catchAsync(async (req, res) => {
     res.render('campground/show', { campground })
 }))
 
-app.put('/campground/:id', catchAsync(async (req, res) => {
+app.put('/campground/:id', validateCampground, catchAsync(async (req, res) => {
     const { id } = req.params;
     const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground }, { new: true, runValidators: true });
     res.redirect(`/campground/${campground._id}`);
@@ -73,6 +84,9 @@ app.delete('/campground/:id', catchAsync(async (req, res) => {
     await Campground.findByIdAndDelete(id);
     res.redirect('/campground');
 }))
+app.use((req, res, next) => {
+    res.status(404).render('404', { err: 'Page not found' });
+});
 
 app.use((err, req, res, next) => {
     const { statusCode = 500, message = 'Something went wrong' } = err;
