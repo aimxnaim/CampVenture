@@ -1,0 +1,88 @@
+<% layout('layouts/boilerplate') %>
+
+    <div class="row mb-5">
+        <div class="col-md-5 d-flex flex-column justify-content-center align-items-center ">
+            <figure class="figure">
+                <img src="<%= campground.image %>" alt="" class="figure-img img-fluid rounded">
+            </figure>
+            <figcaption class="figure-caption text-center fs-5">Campground picture from <em>
+                    <%= campground.title %>
+                </em>
+            </figcaption>
+        </div>
+
+        <div class=" col-md-7">
+            <form action="/campground/<%= campground._id %>?__method=PUT" method="POST"
+                class="needs-validation fs-5 form-margin-left" novalidate>
+                <div class="mb-4">
+                    <h1 class="text-center">Edit Campground</h1>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label" for="title">Title</label>
+                    <input class="form-control" type="text" name="campground[title]" placeholder="Campground Title"
+                        id="title" value="<%= campground.title %>" required>
+                    <div class="valid-feedback fs-6">Looks Good !</div>
+                    <div class="invalid-feedback fs-6">Please provide a title !!!</div>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label" for="price">Price</label>
+                    <div class="input-group">
+                        <span class="input-group-text">RM</span>
+                        <input class="form-control" type="number" id="price" name="campground[price]" placeholder="00"
+                            value="<%= campground.price %>" required>
+                        <span class="input-group-text">.00</span>
+                        <div class="valid-feedback fs-6">Looks Good !</div>
+                        <div class="invalid-feedback fs-6">Please put a price 💰</div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label" for="location">Location</label>
+                    <input class="form-control" type="text" id="location" name="campground[location]"
+                        placeholder="City, State" value="<%= campground.location %>" required>
+                    <div class="valid-feedback fs-6">Looks Good !</div>
+                    <div class="invalid-feedback fs-6">Please provide a valid location 🏠</div>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label" for="description">Description</label>
+                    <textarea class="form-control" type="text" id="description" name="campground[description]"
+                        placeholder="Place your campground description here " rows="5"
+                        required><%= campground.description %></textarea>
+                    <div class="valid-feedback fs-6">Looks Good !</div>
+                    <div class="invalid-feedback fs-6">Please provide your campground description</div>
+                </div>
+                <div class="mb-5">
+                    <label class="form-label" for="image">Image</label>
+                    <input class="form-control" type="text" id="image" name="campground[image]"
+                        placeholder="Place your image here" value="<%= campground.image %>" required>
+                    <div class="valid-feedback fs-6">Looks Good !</div>
+                    <div class="invalid-feedback fs-6">Please provide the image link 📸</div>
+                </div>
+                <div class="row">
+                    <div class="col mb-4">
+                        <a href="/campground/<%= campground._id %>" type="button"
+                            class="btn btn-danger icon-link icon-link-hover fs-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-arrow-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+                            </svg>Cancel
+                        </a>
+                    </div>
+                    <div class="col mb-3 d-flex justify-content-end">
+                        <!-- <button class="btn btn-info" type="submit"></button> -->
+                        <button type="submit" class="btn btn-warning fs-5 icon-link icon-link-hover"
+                            style="height: 44px;">Edit
+                            Campground
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
+                                class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                <path
+                                    d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                <path fill-rule="evenodd"
+                                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>

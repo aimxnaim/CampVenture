@@ -1,0 +1,46 @@
+<% layout('layouts/boilerplate') %>
+
+    <body>
+
+        <div class="row">
+            <div class="col-6 offset-3">
+                <div class="card mb-5 fs-5">
+                    <div class="card-header">
+                        Campground Details
+                    </div>
+                    <img src="<%= campground.image %>" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title fs-4">
+                            <%= campground.title %>
+                        </h5>
+                        <p class="card-text text-muted">
+                            <%= campground.location %>
+                        </p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <%= campground.description %>
+                        </li>
+                        <li class="list-group-item">RM <%= campground.price %>/night</li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="/campground/<%= campground._id %>/edit"
+                            class=" btn btn-warning card-link fs-5">Edit</a>
+                        <form class="d-inline " action="/campground/<%= campground._id %>?__method=DELETE"
+                            method="POST">
+                            <button class="btn btn-danger fs-5">Delete</button>
+                        </form>
+                        <a href="/campground"
+                            class="card-link px-3  btn btn-secondary fs-5 icon-link icon-link-hover"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-house-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z" />
+                                <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z" />
+                            </svg>Back to
+                            Campground</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>

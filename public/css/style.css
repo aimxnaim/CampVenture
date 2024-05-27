@@ -1,0 +1,27 @@
+.nav-link {
+    font-size: 20px;
+}
+
+.font {
+    font-size: 17px;
+}
+
+.form-margin-left {
+    box-sizing: border-box;
+    margin-left: 100px !important;
+    margin-bottom: 13px;
+    /* margin-bottom: 20px; */
+}
+
+object[data="/pictures/camp3.svg"] {
+    width: 600px;
+    /* adjust as needed */
+    height: 750px;
+    /* adjust as needed */
+}
+
+@media (min-width: 1300px) {
+    .container {
+        max-width: 90%;
+    }
+}
