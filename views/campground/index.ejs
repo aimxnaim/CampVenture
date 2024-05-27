@@ -14,14 +14,16 @@
                                 <%= campground.title %>
                             </h5>
                             <p class="card-text">
-                                <%= campground.description %>
-                            </p>
-                            <p class="card-text">
                                 <small class="text-muted">
                                     <%= campground.location %>
                                 </small>
                             </p>
-                            <a href="/campground/<%= campground._id %>" class="btn btn-secondary fs-5">View</a>
+                            <p class="card-text mb-4">
+                                <%= campground.description %>
+                            </p>
+
+                            <a href="/campground/<%= campground._id %>" class="btn btn-dark fs-5">View
+                                Campground</a>
                         </div>
                     </div>
                 </div>
