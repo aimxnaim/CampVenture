@@ -6,7 +6,8 @@ const methodOverride = require('method-override');
 const morgan = require('morgan');
 const ejsMate = require('ejs-mate');
 const catchAsync = require('./utils/catchAsync');
-const ExpressError = require('./utils/ExpressError')
+const ExpressError = require('./utils/ExpressError');
+const joi = require('joi');
 
 mongoose.connect('mongodb://127.0.0.1:27017/yelpcamp')
     .then(() => {
