@@ -3,7 +3,7 @@
     <body>
         <h1 class="mb-4">All Campgrounds</h1>
         <% campgrounds.forEach(function(campground) { %>
-            <div class="card mb-3 fs-5">
+            <div class="card mb-3 ">
                 <div class="row">
                     <div class="col-md-4">
                         <img src="<%= campground.image %>" alt="Image of the Campground" class="img-fluid">
@@ -22,7 +22,7 @@
                                 <%= campground.description %>
                             </p>
 
-                            <a href="/campground/<%= campground._id %>" class="btn btn-dark fs-5">View
+                            <a href="/campground/<%= campground._id %>" class="btn btn-dark">View
                                 Campground</a>
                         </div>
                     </div>

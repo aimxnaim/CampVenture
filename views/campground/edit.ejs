@@ -5,7 +5,7 @@
             <figure class="figure">
                 <img src="<%= campground.image %>" alt="" class="figure-img img-fluid rounded">
             </figure>
-            <figcaption class="figure-caption text-center fs-5">Campground picture from <em>
+            <figcaption class="figure-caption text-center fs-6">Campground picture from <em>
                     <%= campground.title %>
                 </em>
             </figcaption>
@@ -15,7 +15,7 @@
             <form action="/campground/<%= campground._id %>?__method=PUT" method="POST"
                 class="needs-validation fs-5 form-margin-left" novalidate>
                 <div class="mb-4">
-                    <h1 class="text-center">Edit Campground</h1>
+                    <h1 class="text-center fs-2">Edit Campground</h1>
                 </div>
                 <div class="mb-4">
                     <label class="form-label" for="title">Title</label>
