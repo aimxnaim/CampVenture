@@ -49,8 +49,16 @@
                             </svg></a>
                     </div>
                     <div class="card-footer">
-                        <small class="text-muted fs-6">Last updated <%= Math.floor((new Date() - new
-                                Date(campground.updatedAt)) / 60000) %> minutes ago</small>
+                        <small class="text-muted fs-6">
+                            <% let minutesSinceUpdate=Math.floor((new Date() - new Date(campground.updatedAt)) / 60000);
+                                %>
+                                <% if (minutesSinceUpdate < 60 * 24) { %>
+                                    Last updated <%= Math.floor(minutesSinceUpdate / 60) %> hours and <%=
+                                            minutesSinceUpdate % 60 %> minutes ago
+                                            <% } else { %>
+                                                Last updated <%= new Date(campground.updatedAt).toLocaleDateString() %>
+                                                    <% } %>
+                        </small>
                     </div>
                 </div>
             </div>
