@@ -20,10 +20,12 @@ object[data="/pictures/camp3.svg"] {
     /* adjust as needed */
 }
 
-object[data="/pictures/favicon_camp.svg"] {
-    width: 50%;
+object[data="/pictures/campfest.svg"] {
+    width: 250px;
     /* adjust as needed */
-    height: 800px;
+    height: 125px;
+    /* margin-top: 5px;  */
+    margin-left: 10px;
 }
 
 .img-fluid {
