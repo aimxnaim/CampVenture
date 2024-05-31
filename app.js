@@ -6,6 +6,7 @@ const Review = require('./model/review');
 const methodOverride = require('method-override');
 const morgan = require('morgan');
 const ejsMate = require('ejs-mate');
+const dotenv = require('dotenv');
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
 const { campgroundSchema, reviewSchema } = require('./schema.js');
@@ -21,6 +22,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/yelpcamp')
 
 const app = express();
 
+dotenv.config({ path: './config/config.env' });
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -127,6 +129,6 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('error', { err });
 })
 
-app.listen(3000, () => {
-    console.log('Serving on port 3000');
+app.listen(process.env.PORT, () => {
+    console.log(`Serving on port ${process.env.PORT} in ${process.env.NODE_ENV} mode`);
 });

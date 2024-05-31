@@ -4,19 +4,24 @@
   "description": "Building a CampVenture project using Node.js, Express, MongoDB, and Bootstrap",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "dev": "SET NODE_ENV=DEVELOPMENT& nodemon app.js",
+    "prod": "SET NODE_ENV=PRODUCTION = node app.js"
   },
   "author": "Aiman Naim",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "ejs-mate": "^4.0.0",
     "express": "^4.19.2",
     "joi": "^17.13.1",
     "method-override": "^3.0.0",
     "mongoose": "^8.4.0",
-    "morgan": "^1.10.0",
-    "nodemon": "^3.1.2"
+    "morgan": "^1.10.0"
   },
-  "keywords": []
+  "keywords": [],
+  "devDependencies": {
+    "nodemon": "^3.1.2"
+  }
 }
