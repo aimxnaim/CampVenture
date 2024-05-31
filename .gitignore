@@ -1,5 +1,7 @@
 # Application files
 Unsplash.js
+config.env
+config/config.envgit rm --cached config/config.env
 
 # Logs
 logs
