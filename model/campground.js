@@ -19,6 +19,7 @@ const CampgroundSchema = new Schema({
         timestamps: true
     })
 
+// Middleware to delete the reviews when the campground is deleted
 CampgroundSchema.post('findOneAndDelete', async function (doc) {
     if (doc) {
         await review.deleteMany({
