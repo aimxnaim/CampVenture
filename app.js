@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const ejsMate = require('ejs-mate');
 const dotenv = require('dotenv');
 const ExpressError = require('./utils/ExpressError');
+const session = require('express-session');
 
 const campground = require('./routes/campground');
 const review = require('./routes/review');
@@ -25,12 +26,24 @@ dotenv.config({ path: './config/config.env' });
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+
 // below is for parsing the form data and adding it to the req.body
 // every single request that comes in,it will use the express.urlencoded no matter what 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('__method'));
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+    secret: 'thisshouldbeabettersecret',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1000ms * 60s * 60m * 24h * 7d = 1 week ; this is the time for the cookie to expire in 1 week
+        maxAge: 1000 * 60 * 60 * 24 * 7,// maxAge is the time in milliseconds for the cookie to expire in 1 week
+        priority: 'high',
+        httpOnly: true,
+    }
+}))
 
 app.get('/', (req, res) => {
     res.render('home');
