@@ -9,14 +9,14 @@
     /* margin-bottom: 20px; */
 }
 
-object[data="/pictures/camp3.svg"] {
+object[data="/stylesheets/pictures/camp3.svg"] {
     width: 500px;
     /* adjust as needed */
     height: 650px;
     /* adjust as needed */
 }
 
-object[data="/pictures/campfest.svg"] {
+object[data="/stylesheets/pictures/campfest.svg"] {
     width: 250px;
     /* adjust as needed */
     height: 125px;
