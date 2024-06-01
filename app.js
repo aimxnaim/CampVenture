@@ -7,6 +7,7 @@ const ejsMate = require('ejs-mate');
 const dotenv = require('dotenv');
 const ExpressError = require('./utils/ExpressError');
 const session = require('express-session');
+const flash = require('connect-flash');
 
 const campground = require('./routes/campground');
 const review = require('./routes/review');
@@ -43,7 +44,15 @@ app.use(session({
         priority: 'high',
         httpOnly: true,
     }
-}))
+}));
+app.use(flash());
+
+// Middleware to show the flash messages in the views template
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+});
 
 app.get('/', (req, res) => {
     res.render('home');
