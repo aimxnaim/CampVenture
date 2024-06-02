@@ -8,6 +8,9 @@ const dotenv = require('dotenv');
 const ExpressError = require('./utils/ExpressError');
 const session = require('express-session');
 const flash = require('connect-flash');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./model/user')
 
 const campground = require('./routes/campground');
 const review = require('./routes/review');
@@ -29,7 +32,6 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // below is for parsing the form data and adding it to the req.body
-// every single request that comes in,it will use the express.urlencoded no matter what 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('__method'));
 app.use(morgan('dev'));
@@ -47,7 +49,16 @@ app.use(session({
 }));
 app.use(flash());
 
-// Middleware to show the flash messages in the views template
+//? Passport Configuration ; must be after the session configuration ; app.use(session({...}))
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+//?  how to store and unstore the user in the session
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+//? Middleware to show the flash messages in the views template
 app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
@@ -56,6 +67,13 @@ app.use((req, res, next) => {
 
 app.get('/', (req, res) => {
     res.render('home');
+});
+
+app.get('/fakeUser', async (req, res) => {
+    const user = new User({ email: 'aiman@gmail.com', username: 'aiman' });
+    // ? register is a method from passport-local-mongoose
+    const newUser = await User.register(user, 'chicken');
+    res.send(newUser);
 });
 
 app.use('/campground', campground);
