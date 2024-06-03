@@ -1,0 +1,54 @@
+<% layout('layouts/boilerplate') %>
+
+    <div class="container d-flex justify-content-center align-items-center min vh-75 mb-5">
+        <div class="row border rounded-5 p-3 bg-white shadow box-area">
+            <!-- Left Box -->
+            <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
+                style="background-color: #01204E;">
+                <div class="featured-image mb-3">
+                    <img src="/stylesheets/pictures/1.png" alt="Register Image" class="img-fluid" style="width: 250px;">
+                </div>
+                <p class="text-white fs-2" style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">Be
+                    Verified</p>
+                <small class="text-white text-wrap text-center"
+                    style="width: 17rem; font-family: 'Courier New', Courier, monospace;">Join experienced designers on
+                    this platform</small>
+            </div>
+            <!-- Right Box -->
+            <div class="col-md-6 right-box">
+                <div class="row align-items-center">
+                    <div class="header-text mb-4">
+                        <h2 class="d-flex align-items-center justify-content-center">Hello,Again</h2>
+                        <p class="d-flex align-items-center justify-content-center">We are happy to have you back</p>
+
+                    </div>
+                    <form action="/login" method="POST" class="needs-validation" novalidate>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Username"
+                                name="username" required>
+                            <label for="floatingInput">Username</label>
+                            <div class="invalid-feedback">Please enter your username</div>
+                        </div>
+                        <div class="form-floating mb-5">
+                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+                                required>
+                            <label for="floatingPassword">Password</label>
+                            <div class="invalid-feedback">Please enter your password</div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <button class="btn btn-lg w-100 fs-6 btn-primary text-white">Login</button>
+                        </div>
+                    </form>
+                    <div class="input-group mb-3">
+                        <button class="btn btn-lg btn-light w-100 fs-6"><img src="/stylesheets/pictures/google.png"
+                                alt="Google Image" style="width: 20px;" class="me-2"><small>Sign in with
+                                Google</small></button>
+                    </div>
+                    <div class="row justify-content-center" style="margin-left: 4px; margin-right: 0px;">
+                        <div class="col-auto">
+                            <small>Don't have an account? <a href="/register">Sign Up</a></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

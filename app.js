@@ -12,8 +12,9 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./model/user')
 
-const campground = require('./routes/campground');
-const review = require('./routes/review');
+const userRoutes = require('./routes/user');
+const campgroundRoutes = require('./routes/campground');
+const reviewRoutes = require('./routes/review');
 
 mongoose.connect('mongodb://127.0.0.1:27017/yelpcamp')
     .then(() => {
@@ -76,8 +77,9 @@ app.get('/fakeUser', async (req, res) => {
     res.send(newUser);
 });
 
-app.use('/campground', campground);
-app.use('/campground/:id/review', review);
+app.use('/', userRoutes);
+app.use('/campground', campgroundRoutes);
+app.use('/campground/:id/review', reviewRoutes);
 
 // app.use((req, res, next) => {
 //     res.status(404).render('404', { err: 'Page not found' });
