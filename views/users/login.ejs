@@ -1,5 +1,4 @@
 <% layout('layouts/boilerplate') %>
-
     <div class="container d-flex justify-content-center align-items-center min vh-75 mb-5">
         <div class="row border rounded-5 p-3 bg-white shadow box-area">
             <!-- Left Box -->
@@ -20,7 +19,6 @@
                     <div class="header-text mb-4">
                         <h2 class="d-flex align-items-center justify-content-center">Hello,Again</h2>
                         <p class="d-flex align-items-center justify-content-center">We are happy to have you back</p>
-
                     </div>
                     <form action="/login" method="POST" class="needs-validation" novalidate>
                         <div class="form-floating mb-3">
@@ -31,7 +29,7 @@
                         </div>
                         <div class="form-floating mb-5">
                             <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
-                                required>
+                                name="password" required>
                             <label for="floatingPassword">Password</label>
                             <div class="invalid-feedback">Please enter your password</div>
                         </div>

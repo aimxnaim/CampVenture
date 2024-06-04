@@ -22,8 +22,17 @@
             </ul>
 
             <div class="col-md-3 text-end">
-                <a href="/login"> <button type="button" class="btn btn-warning me-2 rounded-pill">Login</button></a>
-                <a href="/register"><button type="button" class="btn btn-light rounded-pill">Sign-up</button></a>
+                <% if (typeof user !=='undefined' && user) { %>
+                    <form action="/logout" method="POST">
+                        <button class="btn btn-danger me-2 rounded-pill">Logout</button>
+                    </form>
+                    <!-- <a href="/logout"> </a> -->
+                    <% } else { %>
+                        <a href="/login"> <button type="button"
+                                class="btn btn-warning me-2 rounded-pill">Login</button></a>
+                        <a href="/register"><button type="button"
+                                class="btn btn-light rounded-pill">Sign-up</button></a>
+                        <% } %>
             </div>
         </header>
     </div>
