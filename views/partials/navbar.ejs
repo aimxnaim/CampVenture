@@ -22,7 +22,7 @@
             </ul>
 
             <div class="col-md-3 text-end">
-                <% if (typeof user !=='undefined' && user) { %>
+                <% if (typeof currentUser !=='undefined' && currentUser) { %>
                     <form action="/logout" method="POST">
                         <button class="btn btn-danger me-2 rounded-pill">Logout</button>
                     </form>

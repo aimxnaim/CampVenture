@@ -61,10 +61,10 @@ passport.deserializeUser(User.deserializeUser());
 
 //? Middleware to show the flash messages in the views template
 app.use((req, res, next) => {
-    console.log(req.session);
+    // console.log(req.session);
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
-    res.locals.user = req.user;
+    res.locals.currentUser = req.user;
     next();
 });
 

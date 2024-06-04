@@ -43,4 +43,4 @@ const getRandomImage = async () => {
     return data.results[randomNumber].urls.regular;
 }
 
-seedDB();
+// seedDB();
