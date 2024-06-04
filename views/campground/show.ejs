@@ -65,41 +65,49 @@
 
         </div>
         <div class="col-6">
-            <h2>Leave a Review</h2>
-            <form action="/campground/<%= campground._id %>/review" method="POST" class="mb-3 needs-validation"
-                novalidate>
-                <div class="mb-3">
-                    <label for="rating" class="form-label">Rating</label>
-                    <input type="range" class="form-range" id="rating" name="review[rating]" min="1" max="5" required>
-                </div>
-                <div class="mb-3">
-                    <label for="review" class="form-label">Review</label>
-                    <textarea class="form-control" id="review" name="review[body]" rows="3" required></textarea>
-                    <div class="valid-feedback">Looks Good !</div>
-                    <div class="invalid-feedback">Please leave a review❗</div>
-                </div>
-                <button type="submit" class="btn btn-success">Submit</button>
-            </form>
-            <!-- <% if ( campground.reviews.length> 0) { %>
+            <% if (currentUser) { %>
+                <h2>Leave a Review</h2>
+                <form action="/campground/<%= campground._id %>/review" method="POST" class="mb-3 needs-validation"
+                    novalidate>
+                    <div class="mb-3">
+                        <label for="rating" class="form-label">Rating</label>
+                        <input type="range" class="form-range" id="rating" name="review[rating]" min="1" max="5"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="review" class="form-label">Review</label>
+                        <textarea class="form-control" id="review" name="review[body]" rows="3" required></textarea>
+                        <div class="valid-feedback">Looks Good !</div>
+                        <div class="invalid-feedback">Please leave a review❗</div>
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+                <% } %>
+                    <!-- <% if ( campground.reviews.length> 0) { %>
                     <h3 class="mb-3">
                         <%= campground.title %> Review
                     </h3>
                     <% } %> -->
-            <% for( let review of campground.reviews) { %>
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Rating <%= review.rating %>
-                        </h5>
-                        <p class="card-text">
-                            Review: <%= review.body %>
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <form action="/campground/<%= campground._id %>/review/<%= review._id %>?__method=DELETE"
-                            method="POST"><button class="btn btn-danger">Delete</button></form>
-                    </div>
-                </div>
+                    <% for( let review of campground.reviews) { %>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Rating <%= review.rating %>
+                                </h5>
+                                <div class="card- mb-2 text-muted">By : <%= review.author.username %>
+                                </div>
+                                <p class="card-text">
+                                    Review: <%= review.body %>
+                                </p>
+                            </div>
+                            <% if (currentUser && review.author.equals(currentUser)) { %>
+                                <div class="card-footer">
+                                    <form
+                                        action="/campground/<%= campground._id %>/review/<%= review._id %>?__method=DELETE"
+                                        method="POST"><button class="btn btn-danger">Delete</button></form>
+                                </div>
+                                <% } %>
+                        </div>
 
-                <% } %>
+                        <% } %>
         </div>
     </div>
