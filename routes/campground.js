@@ -3,14 +3,42 @@ const router = express.Router();
 const catchAsync = require('../utils/catchAsync');
 const Campground = require('../model/campground');
 const { validateCampground, isLoggedIn, validateCampgroundId, isAuthor, isCampgroundExist } = require('../middleware/middleware');
-const campground = require('../controllers/campground')
+const campground = require('../controllers/campground');
 
-router.get('/', catchAsync(campground.index));
+router.route('/')
+    .get(catchAsync(campground.index))
+    .post(isLoggedIn, validateCampground, catchAsync(campground.newCampground));
+
 router.get('/new', isLoggedIn, campground.renderNewCampgroundForm);
-router.post('/', isLoggedIn, validateCampground, catchAsync(campground.newCampground));
-router.get('/:id', validateCampgroundId, isCampgroundExist, catchAsync(campground.showCampground));
-router.put('/:id', validateCampgroundId, isCampgroundExist, isLoggedIn, isAuthor, validateCampground, catchAsync(campground.updateCampground));
-router.get('/:id/edit', isLoggedIn, validateCampgroundId, isCampgroundExist, isAuthor, catchAsync(campground.showEditCampgroundForm));
-router.delete('/:id', isLoggedIn, validateCampgroundId, isCampgroundExist, isAuthor, catchAsync(campground.deleteCampground));
+
+router.route('/:id')
+    .get(
+        validateCampgroundId,
+        isCampgroundExist,
+        catchAsync(campground.showCampground)
+    )
+    .put(
+        validateCampgroundId,
+        isCampgroundExist,
+        isLoggedIn,
+        isAuthor,
+        validateCampground,
+        catchAsync(campground.updateCampground)
+    )
+    .delete(
+        isLoggedIn,
+        validateCampgroundId,
+        isCampgroundExist,
+        isAuthor,
+        catchAsync(campground.deleteCampground)
+    );
+
+router.get('/:id/edit',
+    isLoggedIn,
+    validateCampgroundId,
+    isCampgroundExist,
+    isAuthor,
+    catchAsync(campground.showEditCampgroundForm)
+);
 
 module.exports = router;
