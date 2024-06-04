@@ -1,6 +1,6 @@
 # Application files
-Unsplash.js
 config.env
+config/
 
 # Logs
 logs

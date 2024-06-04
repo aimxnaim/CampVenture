@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 const Campground = require('../model/campground')
 const cities = require('./cities');
 const { places, descriptors } = require('./seedHelpers');
-const API = require('./Unsplash')
+const API = require('./Unsplash');
+const dotenv = require('dotenv');
+
+dotenv.config({ path: './config/config.env' });
 
 mongoose.connect('mongodb://127.0.0.1:27017/yelpcamp')
     .then(() => {
@@ -13,7 +16,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/yelpcamp')
         console.log('Error: ', err)
     })
 
-const requestURL = `https://api.unsplash.com/search/photos/?client_id=${API.ACCESS_KEY}&query=campground&per_page=30`;
+const requestURL = `https://api.unsplash.com/search/photos/?client_id=${process.env.UNSPLASH_ACCESS_KEY}&query=campground&per_page=30`;
 const sample = array => array[Math.floor(Math.random() * array.length)]
 
 const seedDB = async () => {
@@ -22,6 +25,7 @@ const seedDB = async () => {
     for (let i = 0; i < 50; i++) {
         let randomImage = await getRandomImage();
         const c = new Campground({
+            author: '665dedac2efb451ec316b038',
             title: `${sample(descriptors)} ${sample(places)}`,
             location: `${cities[i].city}, ${cities[i].state}`,
             image: randomImage,
@@ -39,4 +43,4 @@ const getRandomImage = async () => {
     return data.results[randomNumber].urls.regular;
 }
 
-// seedDB();
+seedDB();
