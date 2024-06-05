@@ -10,7 +10,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
-const User = require('./model/user')
+const User = require('./model/user');
 
 const userRoutes = require('./routes/user');
 const campgroundRoutes = require('./routes/campground');
@@ -80,10 +80,12 @@ app.use('/campground/:id/review', reviewRoutes);
 //     res.status(404).render('404', { err: 'Page not found' });
 // 
 
+// ? Error Handling Middleware for non-existing routes 
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404));
 })
 
+// ? Error Handling Middleware for async functions 
 app.use((err, req, res, next) => {
     const { statusCode = 500, message = 'Something went wrong' } = err;
     res.status(statusCode).render('error', { err });

@@ -1,3 +1,4 @@
+const { urlencoded } = require('express');
 const Campground = require('../model/campground');
 
 module.exports.index = async (req, res) => {
@@ -10,7 +11,10 @@ module.exports.renderNewCampgroundForm = (req, res) => {
 };
 
 module.exports.newCampground = async (req, res) => {
+
     const newCampground = new Campground(req.body.campground);
+    // below line is to store the image in the database in the form of an array
+    newCampground.image = req.files.map(file => ({ url: file.path, filename: file.filename }));
     newCampground.author = req.user._id;
     await newCampground.save();
     req.flash('success', 'Successfully made a new campground!')
@@ -31,8 +35,14 @@ module.exports.showCampground = async (req, res) => {
 
 module.exports.updateCampground = async (req, res) => {
     const { id } = req.params;
-    const campground = await Campground.findById(id);
-    const camp = await Campground.findByIdAndUpdate(id, { ...req.body.campground }, { new: true, runValidators: true });
+    const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground }, { new: true, runValidators: true });
+
+    //* we take only the data from the image array and store it in the database ; ...imgs (spread operator)
+    const imgs = req.files.map(file => ({ url: file.path, filename: file.filename }))
+    //* we dont want to pass the image array as it is, we want to push the new images to the existing array
+    campground.image.push(...imgs);
+
+    await campground.save();
     req.flash('success', `Successfully updated <em><strong> ${campground.title} </strong></em>`);
     res.redirect(`/campground/${campground._id}`);
 };

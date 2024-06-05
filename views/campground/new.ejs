@@ -9,7 +9,7 @@
             </a>
         </div>
         <div class=" col-md-7">
-            <form action="/campground" method="POST" class="needs-validation " novalidate>
+            <form action="/campground" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
                 <div class="mb-4">
                     <h1 class="text-center fs-2">New Campground</h1>
                 </div>
@@ -46,12 +46,16 @@
                     <div class="invalid-feedback">Please provide your campground description</div>
                 </div>
                 <div class="mb-4">
+                    <label for="formFileMultiple" class="form-label">Image</label>
+                    <input class="form-control" type="file" id="formFileMultiple" name="image" multiple required>
+                </div>
+                <!-- <div class="mb-4">
                     <label class="form-label" for="image">Image</label>
                     <input class="form-control" type="text" id="image" name="campground[image]"
                         placeholder="Place your image here" required pattern="https?://.+">
                     <div class="valid-feedback">Looks Good!</div>
                     <div class="invalid-feedback">Please provide the link for the image 📸</div>
-                </div>
+                </div> -->
                 <div class="mb-3 d-flex justify-content-end ">
                     <button class="btn btn-success shadow mx-3 icon-link icon-link-hover rounded-pill" type="submit">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
