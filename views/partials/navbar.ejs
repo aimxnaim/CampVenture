@@ -1,40 +1,34 @@
-<nav class="navbar-dark bg-dark sticky-top"
-    style="height: 120px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
-    <div class="container">
-        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between"
-            style="height: 120px;">
-            <div class="col-md-3 mb-md-0">
-                <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-                    <object type="image/svg+xml" data="/stylesheets/pictures/campfest.svg">Your browser does
-                        not support SVG</object>
-                </a>
-            </div>
+<nav class="navbar-dark bg-dark sticky-top" style="height: 120px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
+  <div class="container">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between" style="height: 120px;">
+      <div class="col-md-3 mb-md-0">
+        <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+          <object type="image/svg+xml" data="/stylesheets/pictures/campfest.svg">Your browser does
+            not support SVG</object>
+        </a>
+      </div>
 
-            <ul class="nav col-12 col-md-auto justify-content-center mb-md-0">
-                <li><a href="/" class="nav-link px-2 fs-6 link-light link-opacity-75 link-opacity-100-hover">Home</a>
-                </li>
-                <li><a href="/campground"
-                        class="nav-link px-2 fs-6 link-light link-opacity-50 link-opacity-100-hover">All
-                        Campground</a></li>
-                <li><a href="/campground/new"
-                        class="nav-link px-2 fs-6 link-light link-opacity-50 link-opacity-100-hover">New Campground</a>
-                </li>
-            </ul>
+      <ul class="nav col-12 col-md-auto justify-content-center mb-md-0">
+        <li><a href="/" class="nav-link px-2 fs-6 link-light link-opacity-75 link-opacity-100-hover">Home</a>
+        </li>
+        <li><a href="/campground" class="nav-link px-2 fs-6 link-light link-opacity-50 link-opacity-100-hover">All
+            Campground</a></li>
+        <li><a href="/campground/new" class="nav-link px-2 fs-6 link-light link-opacity-50 link-opacity-100-hover">New Campground</a>
+        </li>
+      </ul>
 
-            <div class="col-md-3 text-end">
-                <% if (typeof currentUser !=='undefined' && currentUser) { %>
-                    <form action="/logout" method="POST">
-                        <button class="btn btn-danger me-2 rounded-pill">Logout</button>
-                    </form>
-                    <!-- <a href="/logout"> </a> -->
-                    <% } else { %>
-                        <a href="/login"> <button type="button"
-                                class="btn btn-warning me-2 rounded-pill">Login</button></a>
-                        <a href="/register"><button type="button"
-                                class="btn btn-light rounded-pill">Sign-up</button></a>
-                        <% } %>
-            </div>
-        </header>
-    </div>
+      <div class="col-md-3 text-end">
+        <% if (typeof currentUser !=='undefined' && currentUser) { %>
+        <form action="/logout" method="POST">
+          <button class="btn btn-danger me-2 rounded-pill">Logout</button>
+        </form>
+        <!-- <a href="/logout"> </a> -->
+        <% } else { %>
+        <a href="/login"> <button type="button" class="btn btn-warning me-2 rounded-pill">Login</button></a>
+        <a href="/register"><button type="button" class="btn btn-light rounded-pill">Sign-up</button></a>
+        <% } %>
+      </div>
+    </header>
+  </div>
 
 </nav>

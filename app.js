@@ -61,7 +61,7 @@ passport.deserializeUser(User.deserializeUser());
 
 //? Middleware to show the flash messages in the views template
 app.use((req, res, next) => {
-    // console.log(req.session);
+    // //console.log(req.session);
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     res.locals.currentUser = req.user;
@@ -76,9 +76,8 @@ app.use('/', userRoutes);
 app.use('/campground', campgroundRoutes);
 app.use('/campground/:id/review', reviewRoutes);
 
-// app.use((req, res, next) => {
-//     res.status(404).render('404', { err: 'Page not found' });
-// 
+// // app.use((req, res, next) => {
+// // res.status(404).render('404', { err: 'Page not found' });
 
 // ? Error Handling Middleware for non-existing routes 
 app.all('*', (req, res, next) => {
