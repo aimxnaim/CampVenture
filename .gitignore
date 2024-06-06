@@ -1,7 +1,6 @@
 # Application files
 config.env
 config/
-.gitignore
 
 # Logs
 logs
