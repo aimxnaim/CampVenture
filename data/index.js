@@ -34,15 +34,18 @@ const seedDB = async () => {
             image: [
                 {
                     url: randomImage1.urls.regular,
-                    filename: randomImage1.slug
+                    filename: randomImage1.slug,
+                    originalname: randomImage1.alt_description
                 },
                 {
                     url: randomImage2.urls.regular,
-                    filename: randomImage2.slug
+                    filename: randomImage2.slug,
+                    originalname: randomImage2.alt_description
                 },
                 {
                     url: randomImage3.urls.regular,
-                    filename: randomImage3.slug
+                    filename: randomImage3.slug,
+                    originalname: randomImage3.alt_description
                 }
             ],
             price: Math.floor(Math.random() * 20) + 10,
