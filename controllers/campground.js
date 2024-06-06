@@ -1,5 +1,5 @@
-const { urlencoded } = require('express');
 const Campground = require('../model/campground');
+const { cloudinary } = require('../cloudinary/cloudinary');
 
 module.exports.index = async (req, res) => {
     const campgrounds = await Campground.find({});
@@ -42,6 +42,15 @@ module.exports.updateCampground = async (req, res) => {
     const imgs = req.files.map(file => ({ url: file.path, filename: file.filename, originalname: file.originalname }))
     //* we dont want to pass the image array as it is, we want to push the new images to the existing array
     campground.image.push(...imgs);
+
+    // * below code is to delete the images from the database and cloudinary
+    const deleteImages = req.body.deleteImages;
+    if (deleteImages && deleteImages.length > 0) {
+        for (let filename of deleteImages) {
+            await cloudinary.uploader.destroy(filename);
+        }
+        await campground.updateOne({ $pull: { image: { filename: { $in: deleteImages } } } });
+    }
 
     await campground.save();
     req.flash('success', `Successfully updated <em><strong> ${campground.title} </strong></em>`);

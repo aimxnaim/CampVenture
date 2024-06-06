@@ -1,51 +1,66 @@
 <% layout('layouts/boilerplate') %>
 
-    <div class="row mb-5">
-        <div class="col-md-5 d-flex flex-column align-items-center " style="margin-top: 120px;">
-            <figure class="figure">
-                <!-- <img src="<%= campground.image %>" alt="" class="figure-img img-fluid rounded"> -->
-                <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-indicators">
-                        <% campground.image.forEach((image, i)=> { %>
-                            <button type="button" data-bs-target="#carouselExampleAutoplaying"
-                                data-bs-slide-to="<%= i %>" class="<%= i === 0 ? 'active' : '' %>"
-                                aria-current="<%= i === 0 ? 'true' : '' %>" aria-label="Slide <%= i + 1 %>"></button>
-                            <% }) %>
-                    </div>
-                    <div class="carousel-inner">
-                        <% campground.image.forEach((image, i)=> { %>
-                            <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
-                                <img src="<%= image.url %>" class="d-block w-100"
-                                    alt="<%= campground.title %> Campground Image">
-                            </div>
-                            <% }) %>
+    <form action="/campground/<%= campground._id %>?__method=PUT" method="POST" class="needs-validation" novalidate
+        enctype="multipart/form-data">
+        <div class="row mb-5">
+            <div class="col-md-5 d-flex flex-column align-items-center " style="margin-top: 120px;">
+                <figure class="figure">
+                    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            <% campground.image.forEach((image, i)=> { %>
+                                <button type="button" data-bs-target="#carouselExampleAutoplaying"
+                                    data-bs-slide-to="<%= i %>" class="<%= i === 0 ? 'active' : '' %>"
+                                    aria-current="<%= i === 0 ? 'true' : '' %>"
+                                    aria-label="Slide <%= i + 1 %>"></button>
+                                <% }) %>
+                        </div>
+                        <div class="carousel-inner">
+                            <% campground.image.forEach((image, i)=> { %>
+                                <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+                                    <img src="<%= image.thumbnail %>" class="d-block w-100"
+                                        alt="<%= campground.title %> Campground Image">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h5>
+                                            Slide <%= i + 1 %>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <% }) %>
 
+                        </div>
+                        <% if (campground.image.length> 1) { %>
+                            <button class="carousel-control-prev" type="button"
+                                data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                            <% } %>
                     </div>
-                    <% if (campground.image.length> 1) { %>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                        <% } %>
-                </div>
-            </figure>
-            <figcaption class="figure-caption text-center fs-6">Campground picture from <em>
-                    <%= campground.title %>
-                </em>
-            </figcaption>
-        </div>
+                </figure>
+                <figcaption class="figure-caption fs-6">
+                    Select the image to delete from <em>
+                        <%= campground.title %>
+                    </em>
+                    <% campground.image.forEach((image, i)=> { %>
+                        <div class="form-check text-dark mt-2">
+                            <input type="checkbox" id="image_<%=i %>" class="form-check-input" name="deleteImages[]"
+                                value="<%= image.filename %>">
+                            <label for="image_<%= i %>" class="form-check-label">Slide <%= i+1 %> : <%=
+                                        image.originalname %></label>
+                        </div>
+                        <% }) %>
+                </figcaption>
+            </div>
 
-        <div class=" col-md-7">
-            <form action="/campground/<%= campground._id %>?__method=PUT" method="POST"
-                class="needs-validation fs-5 form-margin-left" novalidate enctype="multipart/form-data">
-                <div class="mb-4">
-                    <h1 class="text-center fs-2">Edit Campground</h1>
+            <div class=" col-md-7">
+
+                <div class="mb-5">
+                    <h1 class="text-center fs-2 mt-2">Edit Campground</h1>
                 </div>
                 <div class="mb-4">
                     <label class="form-label" for="title">Title</label>
@@ -80,16 +95,9 @@
                     <div class="valid-feedback fs-6">Looks Good !</div>
                     <div class="invalid-feedback fs-6">Please provide your campground description</div>
                 </div>
-                <!-- <div class="mb-5">
-                    <label class="form-label" for="image">Image</label>
-                    <input class="form-control" type="text" id="image" name="campground[image]"
-                        placeholder="Place your image here" value="<%= campground.image %>" required>
-                    <div class="valid-feedback fs-6">Looks Good !</div>
-                    <div class="invalid-feedback fs-6">Please provide the image link 📸</div>
-                </div> -->
                 <div class="mb-5">
                     <label for="formFileMultiple" class="form-label">Add New Image</label>
-                    <input class="form-control" type="file" id="formFileMultiple" name="image" multiple required>
+                    <input class="form-control" type="file" id="formFileMultiple" name="image" multiple>
                 </div>
                 <div class="row">
                     <div class="col mb-4">
@@ -116,6 +124,6 @@
                         </button>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
+    </form>
