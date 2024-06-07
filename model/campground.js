@@ -12,6 +12,9 @@ const ImageSchema = new Schema({
 ImageSchema.virtual('thumbnail').get(function () {
     return this.url.replace('/upload', '/upload/c_scale,h_700,w_1200');
 })
+
+// ? This is to make the virtuals show up in the JSON response when we send the data to the client side (in the clusterMap.js file)
+const opts = { toJSON: { virtuals: true } };
 const CampgroundSchema = new Schema({
     title: String,
     image: [ImageSchema],
@@ -39,10 +42,14 @@ const CampgroundSchema = new Schema({
             ref: 'Review'
         }
     ]
-},
+}, opts,
     {
         timestamps: true
     })
+
+CampgroundSchema.virtual('properties.popUpMarkup').get(function () {
+    return '<strong><a href="/campground/' + this._id + '">' + this.title + '</a></strong><p>' + this.location + '</p>';
+})
 
 // Middleware to delete the reviews when the campground is deleted
 CampgroundSchema.post('findOneAndDelete', async function (doc) {

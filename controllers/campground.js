@@ -31,7 +31,7 @@ module.exports.newCampground = async (req, res) => {
 
 module.exports.showCampground = async (req, res) => {
     const { id } = req.params;
-    // req.session.returnTo = req.originalUrl;
+    // //req.session.returnTo = req.originalUrl;
     const campground = await Campground.findById(id).populate({
         path: 'reviews',
         populate: {
@@ -43,7 +43,7 @@ module.exports.showCampground = async (req, res) => {
 
 module.exports.updateCampground = async (req, res) => {
     const { id } = req.params;
-    console.log(req.body);
+    // // console.log(req.body);
     const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground }, { new: true, runValidators: true });
 
     //* we take only the data from the image array and store it in the database ; ...imgs (spread operator)
