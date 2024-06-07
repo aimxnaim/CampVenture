@@ -36,10 +36,11 @@ body {
 
 #menu {
     position: absolute;
-    background: transparent;
+    top: 10px;
+    left: 10px;
     padding: 10px;
-    top: 167px;
-    /* border-radius: 0 0 10px 0; */
+    font-family: "Poppins", sans-serif;
+    z-index: 1;
 }
 
 .right-box {
