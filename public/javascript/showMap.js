@@ -3,21 +3,18 @@
 // https://account.mapbox.com
 mapboxgl.accessToken = mapBoxToken;
 const map = new mapboxgl.Map({
-    container: 'map', // container ID
+    container: 'mapShow', // container ID
     style: 'mapbox://styles/mapbox/streets-v12', // style URL
     center: campground.geometry.coordinates, // starting position [lng, lat]
     zoom: 10, // starting zoom
 });
 
-const layerList = document.getElementById('menu');
-const inputs = layerList.getElementsByTagName('input');
+const layerList = document.querySelector('#menu select');
 
-for (const input of inputs) {
-    input.onclick = (layer) => {
-        const layerId = layer.target.id;
-        map.setStyle('mapbox://styles/mapbox/' + layerId);
-    };
-}
+layerList.onchange = function () {
+    const layerId = this.options[this.selectedIndex].id;
+    map.setStyle('mapbox://styles/mapbox/' + layerId);
+};
 
 
 new mapboxgl.Marker()
