@@ -53,7 +53,11 @@ module.exports.updateCampground = async (req, res) => {
 
     // * below code is to delete the images from the database and cloudinary
     const deleteImages = req.body.deleteImages;
-    if (deleteImages && deleteImages.length > 0) {
+    if (deleteImages && deleteImages.length === campground.image.length) {
+        req.flash('error', 'You must have at least one image for the campground');
+        return res.redirect(`/campground/${campground._id}/edit`);
+    }
+    else if (deleteImages && deleteImages.length > 0) {
         for (let filename of deleteImages) {
             await cloudinary.uploader.destroy(filename);
         }
