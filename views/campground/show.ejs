@@ -10,7 +10,7 @@
       <div class="carousel-inner">
         <% campground.image.forEach((image, i)=> { %>
         <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
-          <img src="<%= image.thumbnail %>" class="d-block w-100" alt="<%= campground.title %> Campground Image">
+          <img id="image_thumbnail" src="<%= image.thumbnail %>" class="d-block w-100" alt="<%= campground.title %> Campground Image">
         </div>
         <% }) %>
 
@@ -26,7 +26,7 @@
       </button>
       <% } %>
     </div>
-    <div class="card mb-5 ">
+    <div class="card mb-5 " id="card_show">
       <div class="card-body">
         <h5 class="card-title fs-4">
           <%= campground.title %>
@@ -49,11 +49,40 @@
               <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z" />
             </svg>
             Edit</a>
-          <form class="d-inline " action="/campground/<%= campground._id %>?__method=DELETE" method="POST">
-            <button class="icon-link btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
-              </svg>Delete</button>
-          </form>
+
+          <!-- Button trigger modal -->
+          <button type="button" class="icon-link icon-link-hover btn btn-danger" data-bs-toggle="modal" data-bs-target="#Modal">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+              <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
+            </svg>Delete</button>
+
+          <!-- Modal -->
+          <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="ModalLabel">
+                    <strong>
+                      <%= campground.title%>
+                    </strong>
+                  </h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  Are you sure you want to delete this campground?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <form class="d-inline " action="/campground/<%= campground._id %>?__method=DELETE" method="POST">
+                    <button class="icon-link btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                        <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
+                      </svg>Delete</button>
+                  </form>
+                  <!--<button type="button" class="btn btn-primary">Save changes</button> -->
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <a href="/campground" class="card-link btn btn-secondary btn-lg rounded icon-link "><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
             <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z" />
@@ -89,18 +118,6 @@
           <option id="outdoors-v12" name="rtoggle" value="outdoors">outdoors</option>
         </select>
       </div>
-      <!-- <input id="satellite-streets-v12" type="radio" name="rtoggle" value="satellite">
-       See a list of Mapbox-hosted public styles at -->
-      <!-- https://docs.mapbox.com/api/maps/styles/#mapbox-styles 
-      <label for="satellite-streets-v12">satellite streets</label>
-      <input id="light-v11" type="radio" name="rtoggle" value="light">
-      <label for="light-v11">light</label>
-      <input id="dark-v11" type="radio" name="rtoggle" value="dark">
-      <label for="dark-v11">dark</label>
-      <input id="streets-v12" type="radio" name="rtoggle" value="streets" checked="checked">
-      <label for="streets-v12">streets</label>
-      <input id="outdoors-v12" type="radio" name="rtoggle" value="outdoors">
-      <label for="outdoors-v12">outdoors</label> -->
     </div>
     <% if (currentUser) { %>
     <h2>Leave a Review</h2>
@@ -119,13 +136,19 @@
         <label for="first-rate5" title="Amazing">5 stars</label>
       </fieldset>
       <div class="mb-3">
-        <label for="review" class="form-label">Review</label>
         <textarea class="form-control" id="review" name="review[body]" rows="3" required></textarea>
         <div class="valid-feedback">Looks Good !</div>
         <div class="invalid-feedback">Please leave a review❗</div>
       </div>
       <button type="submit" class="btn btn-success">Submit</button>
     </form>
+    <% } else { %>
+    <div class="card my-4" style="box-shadow: 5px 5px 10px 1px rgba(0, 0, 0, 0.2);border-radius:10px;">
+      <h6 class="card-header">Leave a Review</h6>
+      <div class="card-body">
+        <a href="/login"><button class="btn btn-success">Sign in first</button></a>
+      </div>
+    </div>
     <% } %>
     <% for( let review of campground.reviews) { %>
     <div class="card mb-3">
