@@ -1,4 +1,4 @@
-<nav class="navbar-dark bg-dark sticky-top" style="height: 120px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
+<!-- <nav class="navbar-dark bg-dark sticky-top" style="height: 120px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
   <div class="container">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between" style="height: 120px;">
       <div class="col-md-3 mb-md-0">
@@ -22,7 +22,6 @@
         <form action="/logout" method="POST">
           <button class="btn btn-danger me-2 rounded-pill">Logout</button>
         </form>
-        <!-- <a href="/logout"> </a> -->
         <% } else { %>
         <a href="/login"> <button type="button" class="btn btn-warning me-2 rounded-pill">Login</button></a>
         <a href="/register"><button type="button" class="btn btn-light rounded-pill">Sign-up</button></a>
@@ -31,4 +30,43 @@
     </header>
   </div>
 
+</nav> -->
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand me-auto" href="#"><img src="/stylesheets/pictures/camplogo.png" alt=""
+        style="width: 40px;margin-right: 15px;margin-left: 10px;">CampVenture</a>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Logo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+          <li class="nav-item">
+            <a class="nav-link mx-lg-2" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mx-lg-2" href="/campground">All Campground</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mx-lg-2" href="/campground/new">New Campground</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mx-lg-2" href="#">Category</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <a class="login-button" href="">Login</a>
+    <button class="navbar-toggler pe-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
 </nav>
+<!-- End Navbar -->
+
+<script src="/javascript/activeCurrentPage.js"></script>
