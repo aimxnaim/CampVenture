@@ -44,14 +44,8 @@
       <div class="mb-4">
         <label for="formFileMultiple" class="form-label">Image</label>
         <input class="form-control" type="file" id="formFileMultiple" name="image" multiple required>
+        <div class="invalid-feedback">Please put at least one image 📸</div>
       </div>
-      <!-- <div class="mb-4">
-                    <label class="form-label" for="image">Image</label>
-                    <input class="form-control" type="text" id="image" name="campground[image]"
-                        placeholder="Place your image here" required pattern="https?://.+">
-                    <div class="valid-feedback">Looks Good!</div>
-                    <div class="invalid-feedback">Please provide the link for the image 📸</div>
-                </div> -->
       <div class="mb-3 d-flex justify-content-end ">
         <button class="btn btn-success shadow mx-3 icon-link icon-link-hover rounded-pill" type="submit">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
@@ -67,3 +61,5 @@
 
   </div>
 </div>
+
+<script src="/javascript/checkValidity.js"></script>
