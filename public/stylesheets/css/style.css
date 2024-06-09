@@ -68,19 +68,22 @@ main {
     padding: 40px 30px 40px 40px;
 }
 
+.edit-left-box {
+    padding: 10px 40px 40px 40px;
+}
+
+.new-box {
+    background-color: white;
+    padding: 40px 30px 40px 40px;
+    box-shadow: 5px 5px 10px 1px rgba(0, 0, 0, 0.2);
+}
+
 .vh-75 {
     height: 75vh;
 }
 
 .nav-link {
     font-size: 20px;
-}
-
-.form-margin-left {
-    box-sizing: border-box;
-    margin-left: 100px !important;
-    margin-bottom: 15px;
-    /* margin-bottom: 20px; */
 }
 
 .wrapper {
