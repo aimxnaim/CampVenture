@@ -1,128 +1,113 @@
 <% layout('layouts/boilerplate') %>
 
-  <form action="/campground/<%= campground._id %>?__method=PUT" method="POST" class="needs-validation" novalidate
-    enctype="multipart/form-data">
-    <div class="row mb-5">
-      <div class="col-md-5 d-flex flex-column align-items-center " style="margin-top: 120px;">
-        <figure class="figure">
-          <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-              <% campground.image.forEach((image, i)=> { %>
-                <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="<%= i %>"
-                  class="<%= i === 0 ? 'active' : '' %>" aria-current="<%= i === 0 ? 'true' : '' %>"
-                  aria-label="Slide <%= i + 1 %>"></button>
-                <% }) %>
-            </div>
-            <div class="carousel-inner">
-              <% campground.image.forEach((image, i)=> { %>
-                <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
-                  <img src="<%= image.thumbnail %>" class="d-block w-100"
-                    alt="<%= campground.title %> Campground Image">
-                  <div class="carousel-caption d-none d-md-block">
-                    <h5>
-                      Slide <%= i + 1 %>
-                    </h5>
-                  </div>
-                </div>
-                <% }) %>
+<form action="/campground/<%= campground._id %>?__method=PUT" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
+  <div class="row mb-5 new-box border rounded-5">
+    <div class="mb-5">
+      <h1 class="text-center fs-2 mt-2">Edit Campground</h1>
+    </div>
 
-            </div>
-            <% if (campground.image.length> 1) { %>
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
-              <% } %>
+
+    <div class=" col-md-7 edit-left-box">
+      <div class="mb-4">
+        <label class="form-label" for="title">Title</label>
+        <input class="form-control" type="text" name="campground[title]" placeholder="Campground Title" id="title" value="<%= campground.title %>" required>
+        <div class="valid-feedback fs-6">Looks Good !</div>
+        <div class="invalid-feedback fs-6">Please provide a title !!!</div>
+      </div>
+      <div class="mb-4">
+        <label class="form-label" for="price">Price</label>
+        <div class="input-group">
+          <span class="input-group-text">RM</span>
+          <input class="form-control" type="number" id="price" name="campground[price]" placeholder="00" value="<%= campground.price %>" required>
+          <span class="input-group-text">.00</span>
+          <div class="valid-feedback fs-6">Looks Good !</div>
+          <div class="invalid-feedback fs-6">Please put a price 💰</div>
+        </div>
+      </div>
+      <div class="mb-4">
+        <label class="form-label" for="location">Location</label>
+        <input class="form-control" type="text" id="location" name="campground[location]" placeholder="City, State" value="<%= campground.location %>" required>
+        <div class="valid-feedback fs-6">Looks Good !</div>
+        <div class="invalid-feedback fs-6">Please provide a valid location 🏠</div>
+      </div>
+      <div class="mb-4">
+        <label class="form-label" for="description">Description</label>
+        <textarea class="form-control" type="text" id="description" name="campground[description]" placeholder="Place your campground description here " rows="5" required><%= campground.description %></textarea>
+        <div class="valid-feedback fs-6">Looks Good !</div>
+        <div class="invalid-feedback fs-6">Please provide your campground description</div>
+      </div>
+      <div class="mb-5">
+        <label for="formFileMultiple" class="form-label">Add New Image</label>
+        <input class="form-control" type="file" id="formFileMultiple" name="image" multiple>
+      </div>
+
+    </div>
+    <div class="col-md-5 d-flex flex-column">
+      <figure class="figure">
+        <label class="form-label mb-2" for="title">Select the image to delete from <em>
+            <%= campground.title %></label>
+        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            <% campground.image.forEach((image, i)=> { %>
+            <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="<%= i %>" class="<%= i === 0 ? 'active' : '' %>" aria-current="<%= i === 0 ? 'true' : '' %>" aria-label="Slide <%= i + 1 %>"></button>
+            <% }) %>
           </div>
-        </figure>
-        <figcaption class="figure-caption fs-6">
-          Select the image to delete from <em>
-            <%= campground.title %>
-          </em>
-          <% campground.image.forEach((image, i)=> { %>
-            <div class="form-check text-dark mt-2">
-              <input type="checkbox" id="image_<%=i %>" class="form-check-input" name="deleteImages[]"
-                value="<%= image.filename %>">
-              <label for="image_<%= i %>" class="form-check-label">Slide <%= i+1 %> : <%= image.originalname %></label>
+          <div class="carousel-inner">
+            <% campground.image.forEach((image, i)=> { %>
+            <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+              <img src="<%= image.thumbnail %>" class="d-block w-100 rounded-3 pb-3" alt="<%= campground.title %> Campground Image">
+              <div class="carousel-caption d-none d-md-block">
+                <h5>
+                  Slide <%= i + 1 %>
+                </h5>
+              </div>
             </div>
             <% }) %>
+
+          </div>
+          <% if (campground.image.length> 1) { %>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+          <% } %>
+        </div>
+        <figcaption class="figure-caption fs-6">
+          <% campground.image.forEach((image, i)=> { %>
+          <div class="form-check text-dark mt-2">
+            <input type="checkbox" id="image_<%=i %>" class="form-check-input" name="deleteImages[]" value="<%= image.filename %>">
+            <label for="image_<%= i %>" class="form-check-label">Slide <%= i+1 %> : <%= image.originalname %></label>
+          </div>
+          <% }) %>
         </figcaption>
+      </figure>
+
+    </div>
+    <div class="row ">
+      <div class="col mb-4 d-flex justify-content-center align-items-center">
+        <a href="/campground/<%= campground._id %>" type="button" class="btn btn-danger icon-link icon-link-hover ">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+          </svg>Cancel
+        </a>
       </div>
-
-      <div class=" col-md-7">
-
-        <div class="mb-5">
-          <h1 class="text-center fs-2 mt-2">Edit Campground</h1>
-        </div>
-        <div class="mb-4">
-          <label class="form-label" for="title">Title</label>
-          <input class="form-control" type="text" name="campground[title]" placeholder="Campground Title" id="title"
-            value="<%= campground.title %>" required>
-          <div class="valid-feedback fs-6">Looks Good !</div>
-          <div class="invalid-feedback fs-6">Please provide a title !!!</div>
-        </div>
-        <div class="mb-4">
-          <label class="form-label" for="price">Price</label>
-          <div class="input-group">
-            <span class="input-group-text">RM</span>
-            <input class="form-control" type="number" id="price" name="campground[price]" placeholder="00"
-              value="<%= campground.price %>" required>
-            <span class="input-group-text">.00</span>
-            <div class="valid-feedback fs-6">Looks Good !</div>
-            <div class="invalid-feedback fs-6">Please put a price 💰</div>
-          </div>
-        </div>
-        <div class="mb-4">
-          <label class="form-label" for="location">Location</label>
-          <input class="form-control" type="text" id="location" name="campground[location]" placeholder="City, State"
-            value="<%= campground.location %>" required>
-          <div class="valid-feedback fs-6">Looks Good !</div>
-          <div class="invalid-feedback fs-6">Please provide a valid location 🏠</div>
-        </div>
-        <div class="mb-4">
-          <label class="form-label" for="description">Description</label>
-          <textarea class="form-control" type="text" id="description" name="campground[description]"
-            placeholder="Place your campground description here " rows="5"
-            required><%= campground.description %></textarea>
-          <div class="valid-feedback fs-6">Looks Good !</div>
-          <div class="invalid-feedback fs-6">Please provide your campground description</div>
-        </div>
-        <div class="mb-5">
-          <label for="formFileMultiple" class="form-label">Add New Image</label>
-          <input class="form-control" type="file" id="formFileMultiple" name="image" multiple>
-        </div>
-        <div class="row">
-          <div class="col mb-4">
-            <a href="/campground/<%= campground._id %>" type="button" class="btn btn-danger icon-link icon-link-hover ">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                class="bi bi-arrow-left" viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                  d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
-              </svg>Cancel
-            </a>
-          </div>
-          <div class="col mb-4 d-flex justify-content-end">
-            <!-- <button class="btn btn-info" type="submit"></button> -->
-            <button type="submit" class="btn btn-warning icon-link icon-link-hover">Edit
-              Campground
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
-                class="bi bi-pencil-square" viewBox="0 0 16 16">
-                <path
-                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                <path fill-rule="evenodd"
-                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
-              </svg>
-            </button>
-          </div>
-        </div>
+      <div class="col mb-4 d-flex justify-content-center align-items-center">
+        <!-- <button class="btn btn-info" type="submit"></button> -->
+        <button type="submit" class="btn btn-warning icon-link icon-link-hover">Edit
+          Campground
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+          </svg>
+        </button>
       </div>
     </div>
-  </form>
+  </div>
 
-  <script src="/javascript/checkValidity.js"></script>
+</form>
+
+<script src="/javascript/checkValidity.js"></script>
