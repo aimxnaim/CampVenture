@@ -60,11 +60,18 @@
         </ul>
       </div>
     </div>
-    <a class="login-button" href="">Login</a>
-    <button class="navbar-toggler pe-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-      aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <% if (typeof currentUser !=="undefined" && currentUser) { %>
+      <form action="/logout" method="POST">
+        <button class="logout-button">Logout</button>
+      </form>
+      <% } else { %>
+        <a href="/register"><button type="button" class="signup-button">Sign-up</button></a>
+        <a class="login-button" href="/login">Login</a>
+        <button class="navbar-toggler pe-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <% } %>
   </div>
 </nav>
 <!-- End Navbar -->

@@ -12,6 +12,37 @@
     background-color: #007d5e;
 }
 
+.logout-button {
+    background-color: #A91D3A;
+    color: white;
+    padding: 8px 20px;
+    font-size: 14px;
+    border: none;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: 0.3s background-color;
+}
+
+.logout-button:hover {
+    background-color: #C73659;
+}
+
+.signup-button {
+    background-color: #607274;
+    color: white;
+    padding: 8px 20px;
+    font-size: 14px;
+    border: none;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: 0.3s background-color;
+    margin-right: 10px;
+}
+
+.signup-button:hover {
+    background-color: #C7C8CC;
+}
+
 .navbar {
     /* height: 120px; */
     margin: 20px;
