@@ -1,24 +1,46 @@
-// TO MAKE THE MAP APPEAR YOU MUST
-// ADD YOUR ACCESS TOKEN FROM
-// https://account.mapbox.com
 mapboxgl.accessToken = mapBoxToken;
+
 const map = new mapboxgl.Map({
-    container: 'mapShow', // container ID
-    style: 'mapbox://styles/mapbox/streets-v12', // style URL
-    center: campground.geometry.coordinates, // starting position [lng, lat]
-    zoom: 10, // starting zoom
+    container: 'mapShow',
+    style: 'mapbox://styles/mapbox/streets-v12',
+    center: campground.geometry.coordinates,
+    zoom: 10,
 });
 
+// Update the map style when a different option is selected
 const layerList = document.querySelector('#menu select');
-
 layerList.onchange = function () {
     const layerId = this.options[this.selectedIndex].id;
     map.setStyle('mapbox://styles/mapbox/' + layerId);
 };
 
-// Add zoom and rotation controls to the map.
+// Ensure the map resizes properly when the tab is shown
+document.querySelector('#myTab').addEventListener('shown.bs.tab', function (event) {
+    if (event.target.hash === '#map-tab-pane') {
+        setTimeout(() => {
+            map.resize();
+        }, 200); // Ensure sufficient delay for tab transition
+    }
+});
+
+// Add zoom and rotation controls to the map
 map.addControl(new mapboxgl.NavigationControl());
 
+// Resize the map after load to ensure it renders correctly
+map.on('load', function () {
+    setTimeout(function () {
+        map.resize();
+    }, 500); // Adjust this value as needed
+});
+
+// Resize the map when the tab is clicked
+document.querySelector('#map-tab').addEventListener('click', function () {
+    setTimeout(() => {
+        map.resize();
+    }, 200); // Adjust this delay as needed
+});
+
+// Add a marker and popup to the map
 new mapboxgl.Marker()
     .setLngLat(campground.geometry.coordinates)
     .setPopup(
