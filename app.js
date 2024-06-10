@@ -5,6 +5,7 @@ const methodOverride = require('method-override');
 const morgan = require('morgan');
 const ejsMate = require('ejs-mate');
 const dotenv = require('dotenv');
+dotenv.config({ path: './config/config.env' });
 const ExpressError = require('./utils/ExpressError');
 const session = require('express-session');
 const flash = require('connect-flash');
@@ -12,13 +13,15 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./model/user');
 const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
+const dbUrl = process.env.MONGODB_URL;
 
 
 const userRoutes = require('./routes/user');
 const campgroundRoutes = require('./routes/campground');
 const reviewRoutes = require('./routes/review');
-
-mongoose.connect('mongodb://127.0.0.1:27017/yelpcamp')
+// 'mongodb://127.0.0.1:27017/yelpcamp'
+mongoose.connect(dbUrl,)
     .then(() => {
         console.log('Mongo Connection open!')
     })
@@ -29,7 +32,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/yelpcamp')
 
 const app = express();
 
-dotenv.config({ path: './config/config.env' });
+
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -40,6 +43,7 @@ app.use(methodOverride('__method'));
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
+    name: 'session',
     secret: 'thisshouldbeabettersecret',
     resave: false,
     saveUninitialized: true,
@@ -47,6 +51,7 @@ app.use(session({
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1000ms * 60s * 60m * 24h * 7d = 1 week ; this is the time for the cookie to expire in 1 week
         maxAge: 1000 * 60 * 60 * 24 * 7,// maxAge is the time in milliseconds for the cookie to expire in 1 week
         priority: 'high',
+        //todo secure: true, ; this is for https when we deploy the app to the Heroku
         httpOnly: true,
     }
 }));
@@ -54,6 +59,56 @@ app.use(flash());
 app.use(mongoSanitize({
     replaceWith: '_',
 }));
+app.use(helmet());
+
+const scriptSrcUrls = [
+    "https://stackpath.bootstrapcdn.com",
+    "https://api.tiles.mapbox.com",
+    "https://api.mapbox.com",
+    "https://kit.fontawesome.com",
+    "https://cdnjs.cloudflare.com",
+    "https://cdn.jsdelivr.net",
+];
+const styleSrcUrls = [
+    "https://kit-free.fontawesome.com",
+    "https://stackpath.bootstrapcdn.com",
+    "https://api.mapbox.com",
+    "https://api.tiles.mapbox.com",
+    "https://fonts.googleapis.com",
+    "https://use.fontawesome.com",
+    "https://cdn.jsdelivr.net" // CDN for the star rating
+];
+const connectSrcUrls = [
+    "https://api.mapbox.com",
+    "https://*.tiles.mapbox.com",
+    "https://events.mapbox.com",
+];
+const fontSrcUrls = [
+    "https://fonts.gstatic.com", // Google Fonts
+    "https://use.fontawesome.com", // FontAwesome
+    "https://cdn.jsdelivr.net" // CDN for the star rating
+];
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: [],
+            connectSrc: ["'self'", ...connectSrcUrls],
+            scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+            styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+            workerSrc: ["'self'", "blob:"],
+            childSrc: ["blob:"],
+            objectSrc: [],
+            imgSrc: [
+                "'self'",
+                "blob:",
+                "data:",
+                "https://res.cloudinary.com/dzosiyaan/",
+                "https://images.unsplash.com",
+            ],
+            fontSrc: ["'self'", ...fontSrcUrls],
+        },
+    })
+);
 
 //? Passport Configuration ; must be after the session configuration ; app.use(session({...}))
 app.use(passport.initialize());
