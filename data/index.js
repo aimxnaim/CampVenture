@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Campground = require('../model/campground')
 const cities = require('./cities');
 const { places, descriptors } = require('./seedHelpers');
+const malaysiaCampsite = require('./malaysiaCampsite');
 // const API = require('./Unsplash');
 const dotenv = require('dotenv');
 
@@ -29,11 +30,11 @@ const seedDB = async () => {
         let randomImage3 = await getRandomImage();
         const c = new Campground({
             author: '665dedac2efb451ec316b038',
-            title: `${sample(descriptors)} ${sample(places)}`,
-            location: `${cities[i].city}, ${cities[i].state}`,
+            title: `${malaysiaCampsite[i].name}`,
+            location: `${malaysiaCampsite[i].city}, ${malaysiaCampsite[i].state}`,
             geometry: {
                 type: 'Point',
-                coordinates: [cities[i].longitude, cities[i].latitude]
+                coordinates: [malaysiaCampsite[i].longitude, malaysiaCampsite[i].latitude]
             },
             image: [
                 {
