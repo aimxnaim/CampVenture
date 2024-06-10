@@ -39,6 +39,12 @@
     margin-right: 10px;
 }
 
+.signup-text-button {
+    border: none;
+    background-color: transparent;
+    color: white;
+}
+
 .signup-button:hover {
     background-color: #C7C8CC;
 }
@@ -85,7 +91,7 @@
     color: #000;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1030px) {
     .nav-link:before {
         content: "";
         position: absolute;
@@ -105,6 +111,13 @@
         visibility: visible;
     }
 }
+
+@media (max-width: 950px) {
+    #navbar-buttons {
+        display: none !important;
+    }
+}
+
 
 /* .hero-section {
     background: url(../pictures/backgroundCamp.png) repeat center;

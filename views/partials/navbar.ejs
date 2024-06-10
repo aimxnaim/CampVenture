@@ -1,46 +1,11 @@
-<!-- <nav class="navbar-dark bg-dark sticky-top" style="height: 120px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
-  <div class="container">
-    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between" style="height: 120px;">
-      <div class="col-md-3 mb-md-0">
-        <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-          <object type="image/svg+xml" data="/stylesheets/pictures/campfest.svg">Your browser does
-            not support SVG</object>
-        </a>
-      </div>
-
-      <ul class="nav col-12 col-md-auto justify-content-center mb-md-0">
-        <li><a href="/" class="nav-link px-2 fs-6 link-light link-opacity-75 link-opacity-100-hover">Home</a>
-        </li>
-        <li><a href="/campground" class="nav-link px-2 fs-6 link-light link-opacity-50 link-opacity-100-hover">All
-            Campground</a></li>
-        <li><a href="/campground/new" class="nav-link px-2 fs-6 link-light link-opacity-50 link-opacity-100-hover">New Campground</a>
-        </li>
-      </ul>
-
-      <div class="col-md-3 text-end">
-        <% if (typeof currentUser !=='undefined' && currentUser) { %>
-        <form action="/logout" method="POST">
-          <button class="btn btn-danger me-2 rounded-pill">Logout</button>
-        </form>
-        <% } else { %>
-        <a href="/login"> <button type="button" class="btn btn-warning me-2 rounded-pill">Login</button></a>
-        <a href="/register"><button type="button" class="btn btn-light rounded-pill">Sign-up</button></a>
-        <% } %>
-      </div>
-    </header>
-  </div>
-
-</nav> -->
-
-<!-- Navbar -->
 <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand me-auto" href="#"><img src="/stylesheets/pictures/camplogo.png" alt=""
-        style="width: 40px;margin-right: 15px;margin-left: 10px;">CampVenture</a>
+    <a class="navbar-brand me-auto" href="#"><img src="/stylesheets/pictures/camplogo.png" alt="" style="width: 40px;margin-right: 15px;margin-left: 10px;">CampVenture</a>
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Logo</h5>
+        <img src="/stylesheets/pictures/camplogo.png" alt="" style="width: 40px;margin-right: 15px;">CampVenture
+
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
@@ -54,26 +19,29 @@
           <li class="nav-item">
             <a class="nav-link mx-lg-2" href="/campground/new">New Campground</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link mx-lg-2" href="#">Category</a>
-          </li>
+          </li> -->
         </ul>
+        <!-- Placeholders for buttons inside offcanvas -->
+        <div id="offcanvas-buttons" class="d-lg-none" style="margin-top:50px;"></div>
       </div>
     </div>
-    <% if (typeof currentUser !=="undefined" && currentUser) { %>
+    <div id="navbar-buttons" class="d-none d-lg-flex">
+      <% if (typeof currentUser !=="undefined" && currentUser) { %>
       <form action="/logout" method="POST">
         <button class="logout-button">Logout</button>
       </form>
       <% } else { %>
-        <a href="/register"><button type="button" class="signup-button">Sign-up</button></a>
-        <a class="login-button" href="/login">Login</a>
-        <button class="navbar-toggler pe-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-          aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <% } %>
+      <a href="/register" class="signup-button"><button type="button" class="signup-text-button">Sign-up</button></a>
+      <a class="login-button" href="/login">Login</a>
+      <% } %>
+    </div>
+    <button class="navbar-toggler pe-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
   </div>
 </nav>
-<!-- End Navbar -->
 
 <script src="/javascript/activeCurrentPage.js"></script>
+<script src="/javascript/toggleButtons.js"></script>
