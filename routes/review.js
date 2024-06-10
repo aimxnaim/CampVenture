@@ -4,6 +4,11 @@ const router = express.Router({ mergeParams: true });
 const catchAsync = require('../utils/catchAsync');
 const { validateReview, isLoggedIn, isReviewAuthor } = require('../middleware/middleware');
 const review = require('../controllers/review');
+const campground = require('../controllers/campground');
+
+router.get('/',
+    catchAsync(campground.showCampground)
+);
 
 router.post('/',
     isLoggedIn,
