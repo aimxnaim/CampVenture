@@ -1,74 +1,73 @@
 <% layout('layouts/boilerplate') %>
+<style>
+  @media (max-width: 1250px) {
+    .hide-on-small {
+      display: none;
+    }
 
-  <div class="row mb-5">
+    .form-full-width {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  }
+</style>
 
-    <div class="col-md-5 d-flex justify-content-center">
-      <!-- <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-      <object type="image/svg+xml" data="/stylesheets/pictures/camp3.svg">Your browser does not support
-        SVG</object>
-    </a> -->
-      <img src="/stylesheets/pictures/campnew.png" alt=""
-        style="width: 500px;height: 70%;position: absolute; bottom: 25px;">
-    </div>
-    <div class=" col-md-7 new-box border rounded-5 bg-body-tertiary">
-      <form action="/campground" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
-        <div class="mb-4">
-          <h1 class="text-center fs-2">New Campground</h1>
-        </div>
-        <div class="mb-4">
-          <label class="form-label" for="title">Title</label>
-          <input class="form-control" type=" text" name="campground[title]" placeholder="Campground Title" id="title"
-            required>
-          <div class="valid-feedback">Looks Good!</div>
-          <div class="invalid-feedback">Please provide a title !</div>
-        </div>
-        <div class="mb-4">
-          <label class="form-label" for="price">Price</label>
-          <div class="input-group">
-            <span class="input-group-text">RM</span>
-            <input class="form-control" type="number" id="price" name="campground[price]" placeholder="00" required>
-            <span class="input-group-text">.00</span>
-            <div class="valid-feedback">Looks Good!</div>
-            <div class="invalid-feedback">Please put a price 💰</div>
-          </div>
-        </div>
-        <div class="mb-4">
-          <label class="form-label" for="location">Location</label>
-          <input class="form-control" type="text" id="location" name="campground[location]" placeholder="City, State"
-            required>
-          <div class="valid-feedback">Looks Good!</div>
-          <div class="invalid-feedback">Please provide a valid location 🏠</div>
-        </div>
-        <div class="mb-4">
-          <label class="form-label" for="description">Description</label>
-          <textarea class="form-control" type="text" id="description" name="campground[description]"
-            placeholder="Place your campground description here " rows="4" required></textarea>
-          <div class="valid-feedback">Looks Good!</div>
-          <div class="invalid-feedback">Please provide your campground description</div>
-        </div>
-        <div class="mb-4">
-          <label for="formFileMultiple" class="form-label">Image</label>
-          <input class="form-control" type="file" id="formFileMultiple" name="image" multiple required>
-          <div class="invalid-feedback">Please put at least one image 📸</div>
-        </div>
-        <div class="mb-3 d-flex justify-content-end ">
-          <button class="btn btn-success shadow mx-3 icon-link icon-link-hover rounded-pill" type="submit">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check"
-              viewBox="0 0 16 16">
-              <path
-                d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z" />
-            </svg>Submit</button>
-          <a href="/campground" type="button" class="btn btn-danger icon-link icon-link-hover rounded-pill ">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x"
-              viewBox="0 0 16 16">
-              <path
-                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
-            </svg>Cancel</a>
-        </div>
+<div class="row mb-5">
 
-      </form>
-
-    </div>
+  <div class="col-md-5 d-flex justify-content-center">
+    <img src="/stylesheets/pictures/campnew.png" alt="" class="hide-on-small" style="width: 500px;height: 70%;position: absolute; bottom: 25px;">
   </div>
+  <div class=" col-md-7 col-12 new-box border rounded-5 bg-body-tertiary form-full-width">
+    <form action="/campground" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
+      <div class="mb-4">
+        <h1 class="text-center fs-2">New Campground</h1>
+      </div>
+      <div class="mb-4">
+        <label class="form-label" for="title">Title</label>
+        <input class="form-control" type=" text" name="campground[title]" placeholder="Campground Title" id="title" required>
+        <div class="valid-feedback">Looks Good!</div>
+        <div class="invalid-feedback">Please provide a title !</div>
+      </div>
+      <div class="mb-4">
+        <label class="form-label" for="price">Price</label>
+        <div class="input-group">
+          <span class="input-group-text">RM</span>
+          <input class="form-control" type="number" id="price" name="campground[price]" placeholder="00" required>
+          <span class="input-group-text">.00</span>
+          <div class="valid-feedback">Looks Good!</div>
+          <div class="invalid-feedback">Please put a price 💰</div>
+        </div>
+      </div>
+      <div class="mb-4">
+        <label class="form-label" for="location">Location</label>
+        <input class="form-control" type="text" id="location" name="campground[location]" placeholder="City, State" required>
+        <div class="valid-feedback">Looks Good!</div>
+        <div class="invalid-feedback">Please provide a valid location 🏠</div>
+      </div>
+      <div class="mb-4">
+        <label class="form-label" for="description">Description</label>
+        <textarea class="form-control" type="text" id="description" name="campground[description]" placeholder="Place your campground description here " rows="4" required></textarea>
+        <div class="valid-feedback">Looks Good!</div>
+        <div class="invalid-feedback">Please provide your campground description</div>
+      </div>
+      <div class="mb-4">
+        <label for="formFileMultiple" class="form-label">Image</label>
+        <input class="form-control" type="file" id="formFileMultiple" name="image" multiple required>
+        <div class="invalid-feedback">Please put at least one image 📸</div>
+      </div>
+      <div class="mb-3 d-flex justify-content-end ">
+        <button class="btn btn-success shadow mx-3 icon-link icon-link-hover rounded-pill" type="submit">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+            <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z" />
+          </svg>Submit</button>
+        <a href="/campground" type="button" class="btn btn-danger icon-link icon-link-hover rounded-pill ">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+          </svg>Cancel</a>
+        <script src="/javascript/checkValidity.js"></script>
+      </div>
 
-  <script src="/javascript/checkValidity.js"></script>
+    </form>
+
+  </div>
+</div>
