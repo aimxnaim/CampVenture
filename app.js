@@ -11,6 +11,8 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./model/user');
+const mongoSanitize = require('express-mongo-sanitize');
+
 
 const userRoutes = require('./routes/user');
 const campgroundRoutes = require('./routes/campground');
@@ -49,6 +51,9 @@ app.use(session({
     }
 }));
 app.use(flash());
+app.use(mongoSanitize({
+    replaceWith: '_',
+}));
 
 //? Passport Configuration ; must be after the session configuration ; app.use(session({...}))
 app.use(passport.initialize());
@@ -61,7 +66,7 @@ passport.deserializeUser(User.deserializeUser());
 
 //? Middleware to show the flash messages in the views template
 app.use((req, res, next) => {
-    // //console.log(req.session);
+    console.log(req.query);
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     res.locals.currentUser = req.user;
