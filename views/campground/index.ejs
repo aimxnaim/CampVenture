@@ -1,37 +1,34 @@
 <% layout('layouts/boilerplate') %>
 <div id="map"></div>
-<h1 class="mb-4 text-center">All Campgrounds</h1>
-<% campgrounds.forEach(function(campground) { %>
-<div class="card mb-4 bg-body-tertiary">
-  <div class="row">
-    <div class="col-md-4">
-      <img src="<%= campground.image[0].url %>" alt="Image of the Campground" class="img-fluid" id="img-index">
-    </div>
-    <div class="col-md-8">
-      <div class="card-body py-5 px-4">
-        <h5 class="card-title fs-4">
-          <%= campground.title %>
-        </h5>
-        <p class="card-text">
-          <small class="text-muted">
-            <%= campground.location %>
-          </small>
-        </p>
-        <p class="card-text mb-4">
-          <%= campground.description %>
-        </p>
 
-        <a href="/campground/<%= campground._id %>" class="btn btn-dark">View
-          Campground</a>
+<section>
+  <h1 class="my-4 text-center">All Campgrounds</h1>
+  <div class="row">
+    <% campgrounds.forEach(campground=> { %>
+    <div class="col-sm col-md-4">
+      <div class="card" style="margin-bottom:25px;">
+        <img src="<%= campground.image[0].url %>" class="card-img-top" alt="Image of <%= campground.title %>" style="height: 320px;">
+        <div class="card-body">
+          <h5 class="card-title">
+            <%= campground.title %>
+          </h5>
+          <p class="card-text"><small>
+              <%= campground.location %>
+            </small></p>
+          <a href="/campground/<%= campground._id %>" class="btn btn-dark">View Campground</a>
+        </div>
       </div>
     </div>
+    <% }) %>
   </div>
-</div>
-<% }) %>
+</section>
 
+
+
+<!-- Pass the campgrounds data to the client side -->
 <script>
   const campground = {
-    features: <%- JSON.stringify(campgrounds)%>
+    features: <%- JSON.stringify(campgrounds) %>
   }
 </script>
 <script src="/javascript/clusterMap.js"></script>
