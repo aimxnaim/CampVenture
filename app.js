@@ -14,13 +14,14 @@ const LocalStrategy = require('passport-local');
 const User = require('./model/user');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
-const dbUrl = process.env.MONGODB_URL;
+const dbUrl = process.env.MONGODB_URL || 'mongodb://localhost:27017/yelp-camp';
+const MongoDBStore = require('connect-mongo');
 
 
 const userRoutes = require('./routes/user');
 const campgroundRoutes = require('./routes/campground');
 const reviewRoutes = require('./routes/review');
-// 'mongodb://127.0.0.1:27017/yelpcamp'
+
 mongoose.connect(dbUrl,)
     .then(() => {
         console.log('Mongo Connection open!')
@@ -42,16 +43,33 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('__method'));
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+const secret = process.env.SECRET || 'thisshouldbeabettersecret';
+
+// ? Session Configuration ; must be before the passport configuration
+const store = MongoDBStore.create({
+    mongoUrl: dbUrl,
+    touchAfter: 24 * 60 * 60, // 24 hours ; this is the time in seconds for the session to be updated in 24 hours
+    crypto: {
+        secret
+    }
+});
+
+store.on('error', function (e) {
+    console.log('Session Store Error', e);
+});
+
 app.use(session({
+    store,
     name: 'session',
-    secret: 'thisshouldbeabettersecret',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1000ms * 60s * 60m * 24h * 7d = 1 week ; this is the time for the cookie to expire in 1 week
         maxAge: 1000 * 60 * 60 * 24 * 7,// maxAge is the time in milliseconds for the cookie to expire in 1 week
         priority: 'high',
-        //todo secure: true, ; this is for https when we deploy the app to the Heroku
+        secure: true,
         httpOnly: true,
     }
 }));
