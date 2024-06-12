@@ -168,6 +168,7 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('error', { err });
 })
 
-app.listen(process.env.PORT, () => {
-    console.log(`Serving on port ${process.env.PORT} in ${process.env.NODE_ENV} mode`);
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Serving on port ${port} in ${process.env.NODE_ENV} mode`);
 });
