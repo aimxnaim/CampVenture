@@ -69,7 +69,7 @@ app.use(session({
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1000ms * 60s * 60m * 24h * 7d = 1 week ; this is the time for the cookie to expire in 1 week
         maxAge: 1000 * 60 * 60 * 24 * 7,// maxAge is the time in milliseconds for the cookie to expire in 1 week
         priority: 'high',
-        secure: true,
+        // //secure: true,
         httpOnly: true,
     }
 }));
