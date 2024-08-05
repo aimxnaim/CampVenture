@@ -6,13 +6,22 @@
     },
     "servers": [
         {
-            "url": "http://localhost:3000"
+            "url": "http://localhost:3000",
+            "description": "Local development server"
+        },
+        {
+            "url": "https://guarded-brook-77953-c2f2c375b2e1.herokuapp.com",
+            "description": "Production server"
         }
     ],
     "tags": [
         {
             "name": "Campground",
             "description": "The campground managing API"
+        },
+        {
+            "name": "User",
+            "description": "The user managing API"
         }
     ],
     "paths": {
@@ -44,10 +53,40 @@
                     "Campground"
                 ],
                 "requestBody": {
+                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/Campground"
+                                "type": "object",
+                                "properties": {
+                                    "campground": {
+                                        "type": "object",
+                                        "properties": {
+                                            "title": {
+                                                "type": "string",
+                                                "example": "Sungai Melayu Kekasih Tercintah"
+                                            },
+                                            "price": {
+                                                "type": "number",
+                                                "example": 13
+                                            },
+                                            "description": {
+                                                "type": "string",
+                                                "example": "Beautiful campsite"
+                                            },
+                                            "location": {
+                                                "type": "string",
+                                                "example": "Kampung Sungai Melayu, Johor Bahru"
+                                            }
+                                        },
+                                        "required": [
+                                            "title",
+                                            "price",
+                                            "description",
+                                            "location"
+                                        ]
+                                    }
+                                }
                             }
                         }
                     }
@@ -102,6 +141,32 @@
                     },
                     "404": {
                         "description": "The campground data not found"
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "summary": "Log out a user",
+                "tags": [
+                    "User"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User logged out successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Logged out successfully"
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -223,6 +288,50 @@
                     "location": "Kuala Kubu Bharu, Selangor",
                     "author": "665f4a742669bb8f28755761",
                     "reviews": []
+                }
+            },
+            "User": {
+                "type": "object",
+                "required": [
+                    "username",
+                    "email",
+                    "password",
+                    "hash",
+                    "salt"
+                ],
+                "properties": {
+                    "_id": {
+                        "type": "string",
+                        "description": "The auto-generated id of the user"
+                    },
+                    "username": {
+                        "type": "string",
+                        "description": "The username of the user"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "The email of the user"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "The password of the user"
+                    },
+                    "hash": {
+                        "type": "string",
+                        "description": "The hashed password of the user"
+                    },
+                    "salt": {
+                        "type": "string",
+                        "description": "The salt value of the user"
+                    }
+                },
+                "example": {
+                    "_id": "665f4a742669bb8f28755761",
+                    "username": "john_doe",
+                    "email": "john_doe@example.com",
+                    "password": "password",
+                    "hash": "hashedpassword",
+                    "salt": "saltvalue"
                 }
             }
         }

@@ -48,8 +48,8 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(null, {
         url: '/openapi.json' // Path to the JSON file served by your Express app
     }
 }));
-// below is for parsing the form data and adding it to the req.body
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json()); // For parsing application/json
+app.use(express.urlencoded({ extended: true })); // below is for parsing the form data and adding it to the req.body
 app.use(methodOverride('__method'));
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));

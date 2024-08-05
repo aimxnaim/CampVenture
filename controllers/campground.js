@@ -18,21 +18,33 @@ module.exports.renderNewCampgroundForm = (req, res) => {
 };
 
 module.exports.newCampground = async (req, res) => {
-    const geoData = await geocoder.forwardGeocode({
-        query: req.body.campground.location,
-        limit: 1
-    }).send()
+    try {
+        const geoData = await geocoder.forwardGeocode({
+            query: req.body.campground.location,
+            limit: 1
+        }).send()
 
-    const newCampground = new Campground(req.body.campground);
-    // below line is to store the image in the database in the form of an array
-    newCampground.image = req.files.map(file => ({ url: file.path, filename: file.filename, originalname: file.originalname }));
-    newCampground.author = req.user._id;
-    newCampground.geometry = geoData.body.features[0].geometry;
-    await newCampground.save();
-    req.flash('success', 'Successfully made a new campground!')
-    req.accepts('html')
-        ? res.redirect(`/campground/${newCampground._id}`)
-        : res.status(200).json({ newCampground });
+        const newCampground = new Campground(req.body.campground);
+        // below line is to store the image in the database in the form of an array
+        newCampground.image = (req.files || []).map(file => ({
+            url: file.path,
+            filename: file.filename,
+            originalname: file.originalname
+        }));
+        newCampground.author = req.user._id;
+        newCampground.geometry = geoData.body.features[0].geometry;
+        await newCampground.save();
+
+        req.flash('success', 'Successfully made a new campground!')
+
+        req.accepts('html')
+            ? res.redirect(`/campground/${newCampground._id}`)
+            : res.status(200).json({ newCampground });
+    } catch (error) {
+        req.accepts('html')
+            ? res.redirect('/campground/new')
+            : res.status(400).json({ error: error.message });
+    }
 };
 
 module.exports.showCampground = async (req, res) => {

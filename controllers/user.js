@@ -41,7 +41,11 @@ module.exports.logoutUser = (req, res, next) => {
         if (err) {
             return next(err);
         }
-        req.flash('success', `Goodbye!`);
-        res.redirect('/campground');
+        if (req.accepts('html')) {
+            req.flash('success', 'Logged out successfully!');
+            res.redirect('/campground');
+        } else {
+            res.status(200).json({ message: 'Logged out successfully!' });
+        }
     });
 };
