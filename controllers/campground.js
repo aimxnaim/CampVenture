@@ -6,7 +6,11 @@ const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 
 module.exports.index = async (req, res) => {
     const campgrounds = await Campground.find({});
-    res.render('campground/index', { campgrounds });
+    if (req.accepts('html')) {
+        res.render('campground/index', { campgrounds });
+    } else {
+        res.status(200).json({ campgrounds });
+    }
 };
 
 module.exports.renderNewCampgroundForm = (req, res) => {
@@ -26,7 +30,9 @@ module.exports.newCampground = async (req, res) => {
     newCampground.geometry = geoData.body.features[0].geometry;
     await newCampground.save();
     req.flash('success', 'Successfully made a new campground!')
-    res.redirect(`/campground/${newCampground._id}`);
+    req.accepts('html')
+        ? res.redirect(`/campground/${newCampground._id}`)
+        : res.status(200).json({ newCampground });
 };
 
 module.exports.showCampground = async (req, res) => {
@@ -38,7 +44,9 @@ module.exports.showCampground = async (req, res) => {
             path: 'author'
         }
     }).populate('author');
-    res.render('campground/show', { campground })
+    req.accepts('html')
+        ? res.render('campground/show', { campground })
+        : res.status(200).json({ campground });
 };
 
 module.exports.updateCampground = async (req, res) => {

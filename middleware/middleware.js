@@ -9,7 +9,11 @@ module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
         req.session.returnTo = req.originalUrl; // add this line
         req.flash('error', 'You must be signed in first!');
-        return res.redirect('/login');
+        if (req.accepts('html')) {
+            return res.redirect('/login');
+        } else {
+            return res.status(401).json({ error: 'You must be signed in first!' });
+        }
     }
     next();
 }
@@ -19,7 +23,11 @@ module.exports.validateCampground = (req, res, next) => {
     const { error } = campgroundSchema.validate(req.body);
     if (error) {
         const msg = error.details.map(el => el.message).join(',');
-        throw new ExpressError(msg, 400);
+        if (req.accepts('html')) {
+            return next(new ExpressError(msg, 400))
+        } else {
+            return res.status(400).json({ error: msg });
+        }
     }
     else {
         next();
@@ -51,7 +59,11 @@ module.exports.validateCampgroundId = (req, res, next) => {
     const { id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(id)) {
         req.flash('error', `Invalid Id: No campgrounds were found!`);
-        return res.redirect('/campground');
+        if (req.accepts('html')) {
+            return res.redirect('/campground');
+        } else {
+            return res.status(404).json({ error: `Invalid Id: No campgrounds were found!` });
+        }
     };
     next();
 }
@@ -84,7 +96,11 @@ module.exports.isCampgroundExist = async (req, res, next) => {
     const campground = await Campground.findById(id);
     if (!campground) {
         req.flash('error', 'No campgrounds were found!');
-        return res.redirect('/campground');
+        if (req.accepts('html')) {
+            return res.redirect('/campground');
+        } else {
+            return res.status(404).json({ error: 'No campgrounds were found!' });
+        }
     };
     next();
 }
