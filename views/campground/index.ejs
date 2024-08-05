@@ -13,7 +13,11 @@
     <% campgrounds.forEach(campground=> { %>
     <div class="col-md-6 col-lg-4">
       <div class="card" style="margin-bottom:25px;">
+        <% if (campground.image && campground.image.length > 0) { %>
         <img src="<%= campground.image[0].url %>" class="card-img-top" alt="Image of <%= campground.title %>" style="height: 320px;">
+        <% } else { %>
+        <img src="/default-image.jpg" class="card-img-top" alt="Default image" style="height: 320px;">
+        <% } %>
         <div class="card-body">
           <h5 class="card-title">
             <%= campground.title %>
