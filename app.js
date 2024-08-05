@@ -14,9 +14,11 @@ const LocalStrategy = require('passport-local');
 const User = require('./model/user');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
-const dbUrl = process.env.MONGODB_URL || 'mongodb://localhost:27017/yelp-camp';
+const dbUrl = process.env.NODE_ENV === 'DEVELOPMENT'
+    ? 'mongodb://localhost:27017/yelpcamp'
+    : process.env.MONGODB_URL;
 const MongoDBStore = require('connect-mongo');
-
+const swaggerUI = require('swagger-ui-express');
 
 const userRoutes = require('./routes/user');
 const campgroundRoutes = require('./routes/campground');
@@ -33,11 +35,19 @@ mongoose.connect(dbUrl,)
 
 const app = express();
 
-
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+// Serve the OpenAPI JSON file
+app.use('/openapi.json', express.static(path.join(__dirname, 'openapi.json')));
+
+// Setup Swagger UI to use the served JSON file
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(null, {
+    swaggerOptions: {
+        url: '/openapi.json' // Path to the JSON file served by your Express app
+    }
+}));
 // below is for parsing the form data and adding it to the req.body
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('__method'));
