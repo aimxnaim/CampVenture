@@ -1,0 +1,230 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Camp Venture API",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Campground",
+            "description": "The campground managing API"
+        }
+    ],
+    "paths": {
+        "/campground": {
+            "get": {
+                "summary": "Return the list of all campground data",
+                "tags": [
+                    "Campground"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The list of campground data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Campground"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new campground data",
+                "tags": [
+                    "Campground"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Campground"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Created new campground data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Campground"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid campground data"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/campground/{id}": {
+            "get": {
+                "summary": "Return the campground data by ID",
+                "tags": [
+                    "Campground"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The ID of the campground to return"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The campground data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Campground"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "The campground data not found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Image": {
+                "type": "object",
+                "required": [
+                    "url",
+                    "filename",
+                    "originalname"
+                ],
+                "properties": {
+                    "url": {
+                        "type": "string",
+                        "description": "The URL of the image"
+                    },
+                    "filename": {
+                        "type": "string",
+                        "description": "The filename of the image"
+                    },
+                    "originalname": {
+                        "type": "string",
+                        "description": "The original name of the image"
+                    }
+                }
+            },
+            "Geometry": {
+                "type": "object",
+                "required": [
+                    "type",
+                    "coordinates"
+                ],
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "Point"
+                        ],
+                        "description": "The type of the geometry"
+                    },
+                    "coordinates": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        },
+                        "description": "The coordinates of the geometry"
+                    }
+                }
+            },
+            "Campground": {
+                "type": "object",
+                "required": [
+                    "title",
+                    "image",
+                    "geometry",
+                    "price",
+                    "description",
+                    "location",
+                    "author",
+                    "reviews"
+                ],
+                "properties": {
+                    "_id": {
+                        "type": "string",
+                        "description": "The auto-generated id of the campground"
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "The title of the campground"
+                    },
+                    "image": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Image"
+                        }
+                    },
+                    "geometry": {
+                        "$ref": "#/components/schemas/Geometry"
+                    },
+                    "price": {
+                        "type": "number",
+                        "description": "The price of the campground"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "The description of the campground"
+                    },
+                    "location": {
+                        "type": "string",
+                        "description": "The location of the campground"
+                    },
+                    "author": {
+                        "type": "string",
+                        "description": "The ID of the user who created the campground"
+                    },
+                    "reviews": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "description": "The IDs of reviews associated with the campground"
+                        }
+                    }
+                },
+                "example": {
+                    "_id": "666729955fac99689a50e79a",
+                    "title": "Lata Medang",
+                    "image": [
+                        {
+                            "url": "https://i.pinimg.com/564x/cd/ed/77/cded775f9edefed0aea07beae7f13197.jpg",
+                            "filename": "black-suv-with-pop-up-camper-surrounded-by-forest-ky3P6s_s8Xs",
+                            "originalname": "black SUV with pop-up camper surrounded by forest"
+                        }
+                    ],
+                    "price": 13,
+                    "description": "Lata Medang, located in Kuala Kubu Bharu, Selangor, is a beautiful campsite known for its stunning waterfalls and lush forest...",
+                    "location": "Kuala Kubu Bharu, Selangor",
+                    "author": "665f4a742669bb8f28755761",
+                    "reviews": []
+                }
+            }
+        }
+    }
+}
