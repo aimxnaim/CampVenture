@@ -2,8 +2,6 @@
 
 ![CampVenture Screenshot](screenshots/campVenture.png)
 
-
-
 CampVenture is a full-stack web application that allows users to discover, create, and review campgrounds. This project is inspired by Colt Steele's "The Web Developer Bootcamp" course on Udemy that takes me 72 hours in total to complete the entire bootcamp. The estimation time for me to learn and complete this projects is around 3-4 weeks considering the details explanation from Colt Steele that talks deeply about Middleware , the MVC architecture for this project, middleware and the integration of the MapBox into this project websites.
 
 <a href="https://guarded-brook-77953-c2f2c375b2e1.herokuapp.com/" target="_blank">
