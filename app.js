@@ -23,6 +23,7 @@ const swaggerUI = require('swagger-ui-express');
 const userRoutes = require('./routes/user');
 const campgroundRoutes = require('./routes/campground');
 const reviewRoutes = require('./routes/review');
+const cors = require('cors');
 
 mongoose.connect(dbUrl,)
     .then(() => {
@@ -48,6 +49,7 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(null, {
         url: '/openapi.json' // Path to the JSON file served by your Express app
     }
 }));
+app.use(cors());
 app.use(express.json()); // For parsing application/json
 app.use(express.urlencoded({ extended: true })); // below is for parsing the form data and adding it to the req.body
 app.use(methodOverride('__method'));

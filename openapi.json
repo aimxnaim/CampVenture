@@ -1,339 +1,645 @@
 {
-    "openapi": "3.0.3",
-    "info": {
-        "title": "Camp Venture API",
-        "version": "1.0.0"
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Camp Venture API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Local development server"
     },
-    "servers": [
-        {
-            "url": "http://localhost:3000",
-            "description": "Local development server"
-        },
-        {
-            "url": "https://guarded-brook-77953-c2f2c375b2e1.herokuapp.com",
-            "description": "Production server"
-        }
-    ],
-    "tags": [
-        {
-            "name": "Campground",
-            "description": "The campground managing API"
-        },
-        {
-            "name": "User",
-            "description": "The user managing API"
-        }
-    ],
-    "paths": {
-        "/campground": {
-            "get": {
-                "summary": "Return the list of all campground data",
-                "tags": [
-                    "Campground"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The list of campground data",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Campground"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "summary": "Create a new campground data",
-                "tags": [
-                    "Campground"
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "campground": {
-                                        "type": "object",
-                                        "properties": {
-                                            "title": {
-                                                "type": "string",
-                                                "example": "Sungai Melayu Kekasih Tercintah"
-                                            },
-                                            "price": {
-                                                "type": "number",
-                                                "example": 13
-                                            },
-                                            "description": {
-                                                "type": "string",
-                                                "example": "Beautiful campsite"
-                                            },
-                                            "location": {
-                                                "type": "string",
-                                                "example": "Kampung Sungai Melayu, Johor Bahru"
-                                            }
-                                        },
-                                        "required": [
-                                            "title",
-                                            "price",
-                                            "description",
-                                            "location"
-                                        ]
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Created new campground data",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Campground"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid campground data"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            }
-        },
-        "/campground/{id}": {
-            "get": {
-                "summary": "Return the campground data by ID",
-                "tags": [
-                    "Campground"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "description": "The ID of the campground to return"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The campground data",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Campground"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "The campground data not found"
-                    }
-                }
-            }
-        },
-        "/logout": {
-            "post": {
-                "summary": "Log out a user",
-                "tags": [
-                    "User"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "User logged out successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Logged out successfully"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    },
-    "components": {
-        "schemas": {
-            "Image": {
-                "type": "object",
-                "required": [
-                    "url",
-                    "filename",
-                    "originalname"
-                ],
-                "properties": {
-                    "url": {
-                        "type": "string",
-                        "description": "The URL of the image"
-                    },
-                    "filename": {
-                        "type": "string",
-                        "description": "The filename of the image"
-                    },
-                    "originalname": {
-                        "type": "string",
-                        "description": "The original name of the image"
-                    }
-                }
-            },
-            "Geometry": {
-                "type": "object",
-                "required": [
-                    "type",
-                    "coordinates"
-                ],
-                "properties": {
-                    "type": {
-                        "type": "string",
-                        "enum": [
-                            "Point"
-                        ],
-                        "description": "The type of the geometry"
-                    },
-                    "coordinates": {
-                        "type": "array",
-                        "items": {
-                            "type": "number"
-                        },
-                        "description": "The coordinates of the geometry"
-                    }
-                }
-            },
-            "Campground": {
-                "type": "object",
-                "required": [
-                    "title",
-                    "image",
-                    "geometry",
-                    "price",
-                    "description",
-                    "location",
-                    "author",
-                    "reviews"
-                ],
-                "properties": {
-                    "_id": {
-                        "type": "string",
-                        "description": "The auto-generated id of the campground"
-                    },
-                    "title": {
-                        "type": "string",
-                        "description": "The title of the campground"
-                    },
-                    "image": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/Image"
-                        }
-                    },
-                    "geometry": {
-                        "$ref": "#/components/schemas/Geometry"
-                    },
-                    "price": {
-                        "type": "number",
-                        "description": "The price of the campground"
-                    },
-                    "description": {
-                        "type": "string",
-                        "description": "The description of the campground"
-                    },
-                    "location": {
-                        "type": "string",
-                        "description": "The location of the campground"
-                    },
-                    "author": {
-                        "type": "string",
-                        "description": "The ID of the user who created the campground"
-                    },
-                    "reviews": {
-                        "type": "array",
-                        "items": {
-                            "type": "string",
-                            "description": "The IDs of reviews associated with the campground"
-                        }
-                    }
-                },
-                "example": {
-                    "_id": "666729955fac99689a50e79a",
-                    "title": "Lata Medang",
-                    "image": [
-                        {
-                            "url": "https://i.pinimg.com/564x/cd/ed/77/cded775f9edefed0aea07beae7f13197.jpg",
-                            "filename": "black-suv-with-pop-up-camper-surrounded-by-forest-ky3P6s_s8Xs",
-                            "originalname": "black SUV with pop-up camper surrounded by forest"
-                        }
-                    ],
-                    "price": 13,
-                    "description": "Lata Medang, located in Kuala Kubu Bharu, Selangor, is a beautiful campsite known for its stunning waterfalls and lush forest...",
-                    "location": "Kuala Kubu Bharu, Selangor",
-                    "author": "665f4a742669bb8f28755761",
-                    "reviews": []
-                }
-            },
-            "User": {
-                "type": "object",
-                "required": [
-                    "username",
-                    "email",
-                    "password",
-                    "hash",
-                    "salt"
-                ],
-                "properties": {
-                    "_id": {
-                        "type": "string",
-                        "description": "The auto-generated id of the user"
-                    },
-                    "username": {
-                        "type": "string",
-                        "description": "The username of the user"
-                    },
-                    "email": {
-                        "type": "string",
-                        "description": "The email of the user"
-                    },
-                    "password": {
-                        "type": "string",
-                        "description": "The password of the user"
-                    },
-                    "hash": {
-                        "type": "string",
-                        "description": "The hashed password of the user"
-                    },
-                    "salt": {
-                        "type": "string",
-                        "description": "The salt value of the user"
-                    }
-                },
-                "example": {
-                    "_id": "665f4a742669bb8f28755761",
-                    "username": "john_doe",
-                    "email": "john_doe@example.com",
-                    "password": "password",
-                    "hash": "hashedpassword",
-                    "salt": "saltvalue"
-                }
-            }
-        }
+    {
+      "url": "https://guarded-brook-77953-c2f2c375b2e1.herokuapp.com",
+      "description": "Production server"
     }
+  ],
+  "tags": [
+    {
+      "name": "Campground",
+      "description": "The campground managing API"
+    },
+    {
+      "name": "User",
+      "description": "The user managing API"
+    }
+  ],
+  "paths": {
+    "/campground": {
+      "get": {
+        "summary": "Return the list of all campground data",
+        "tags": [
+          "Campground"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of campground data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Campground"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new campground data",
+        "tags": [
+          "Campground"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "campground": {
+                    "type": "object",
+                    "properties": {
+                      "title": {
+                        "type": "string",
+                        "example": "Sungai Melayu Kekasih Tercintah"
+                      },
+                      "price": {
+                        "type": "number",
+                        "example": 13
+                      },
+                      "description": {
+                        "type": "string",
+                        "example": "Beautiful campsite"
+                      },
+                      "location": {
+                        "type": "string",
+                        "example": "Kampung Sungai Melayu, Johor Bahru"
+                      }
+                    },
+                    "required": [
+                      "title",
+                      "price",
+                      "description",
+                      "location"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Invalid campground data"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "201": {
+            "description": "Created new campground data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Campground"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/campground/{id}": {
+      "get": {
+        "summary": "Return the campground data by ID",
+        "tags": [
+          "Campground"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the campground to return"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The campground data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Campground"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The campground data not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update campground data by ID",
+        "tags": [
+          "Campground"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the campground to update"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "campground": {
+                    "type": "object",
+                    "properties": {
+                      "title": {
+                        "type": "string",
+                        "example": "Sungai Melayu Kekasih Tercintah"
+                      },
+                      "price": {
+                        "type": "number",
+                        "example": 13
+                      },
+                      "description": {
+                        "type": "string",
+                        "example": "Beautiful campsite"
+                      },
+                      "location": {
+                        "type": "string",
+                        "example": "Kampung Sungai Melayu, Johor Bahru"
+                      }
+                    },
+                    "required": [
+                      "title",
+                      "price",
+                      "description",
+                      "location"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated campground data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Campground"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid campground data"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "The campground data not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete campground by ID",
+        "tags": [
+          "Campground"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the campground to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Campground deleted successfully"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "The campground data not found"
+          }
+        }
+      }
+    },
+    "/logout": {
+      "post": {
+        "summary": "Log out a user",
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "User logged out successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Logged out successfully"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/campground/{id}/review": {
+      "post": {
+        "summary": "Add a review to campground",
+        "tags": [
+          "Campground"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the campground"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "review": {
+                    "$ref": "#/components/schemas/Review"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Review added successfully"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Invalid review data"
+          }
+        }
+      }
+    },
+    "/campground/{id}/review/{reviewId}": {
+      "delete": {
+        "summary": "Delete a review by ID",
+        "tags": [
+          "Campground"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the campground"
+          },
+          {
+            "name": "reviewId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the review"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Review deleted successfully"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Review not found"
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "summary": "Register a new user",
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "example": "john_doe"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "john@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "password"
+                  }
+                },
+                "required": [
+                  "username",
+                  "email",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User registered successfully"
+          },
+          "400": {
+            "description": "Invalid user data"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "Log in a user",
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "example": "john_doe"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "password"
+                  }
+                },
+                "required": [
+                  "username",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User logged in successfully"
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Image": {
+        "type": "object",
+        "required": [
+          "url",
+          "filename",
+          "originalname"
+        ],
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "The URL of the image"
+          },
+          "filename": {
+            "type": "string",
+            "description": "The filename of the image"
+          },
+          "originalname": {
+            "type": "string",
+            "description": "The original name of the image"
+          }
+        }
+      },
+      "Geometry": {
+        "type": "object",
+        "required": [
+          "type",
+          "coordinates"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "Point"
+            ],
+            "description": "The type of the geometry"
+          },
+          "coordinates": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "description": "The coordinates of the geometry"
+          }
+        }
+      },
+      "Campground": {
+        "type": "object",
+        "required": [
+          "title",
+          "image",
+          "geometry",
+          "price",
+          "description",
+          "location",
+          "author",
+          "reviews"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The auto-generated id of the campground"
+          },
+          "title": {
+            "type": "string",
+            "description": "The title of the campground"
+          },
+          "image": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Image"
+            }
+          },
+          "geometry": {
+            "$ref": "#/components/schemas/Geometry"
+          },
+          "price": {
+            "type": "number",
+            "description": "The price of the campground"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the campground"
+          },
+          "location": {
+            "type": "string",
+            "description": "The location of the campground"
+          },
+          "author": {
+            "type": "string",
+            "description": "The ID of the user who created the campground"
+          },
+          "reviews": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "The IDs of reviews associated with the campground"
+            }
+          }
+        },
+        "example": {
+          "_id": "666729955fac99689a50e79a",
+          "title": "Lata Medang",
+          "image": [
+            {
+              "url": "https://i.pinimg.com/564x/cd/ed/77/cded775f9edefed0aea07beae7f13197.jpg",
+              "filename": "black-suv-with-pop-up-camper-surrounded-by-forest-ky3P6s_s8Xs",
+              "originalname": "black SUV with pop-up camper surrounded by forest"
+            }
+          ],
+          "price": 13,
+          "description": "Lata Medang, located in Kuala Kubu Bharu, Selangor, is a beautiful campsite known for its stunning waterfalls and lush forest...",
+          "location": "Kuala Kubu Bharu, Selangor",
+          "author": "665f4a742669bb8f28755761",
+          "reviews": []
+        }
+      },
+      "User": {
+        "type": "object",
+        "required": [
+          "username",
+          "email",
+          "password",
+          "hash",
+          "salt"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The auto-generated id of the user"
+          },
+          "username": {
+            "type": "string",
+            "description": "The username of the user"
+          },
+          "email": {
+            "type": "string",
+            "description": "The email of the user"
+          },
+          "password": {
+            "type": "string",
+            "description": "The password of the user"
+          },
+          "hash": {
+            "type": "string",
+            "description": "The hashed password of the user"
+          },
+          "salt": {
+            "type": "string",
+            "description": "The salt value of the user"
+          }
+        },
+        "example": {
+          "_id": "665f4a742669bb8f28755761",
+          "username": "john_doe",
+          "email": "john_doe@example.com",
+          "password": "password",
+          "hash": "hashedpassword",
+          "salt": "saltvalue"
+        }
+      },
+      "Review": {
+        "type": "object",
+        "required": [
+          "body",
+          "rating",
+          "author"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The auto-generated id of the review"
+          },
+          "body": {
+            "type": "string",
+            "description": "The review content"
+          },
+          "rating": {
+            "type": "number",
+            "description": "The rating of the review"
+          },
+          "author": {
+            "type": "string",
+            "description": "The ID of the user who wrote the review"
+          }
+        },
+        "example": {
+          "_id": "666729955fac99689a50e79b",
+          "body": "Great place!",
+          "rating": 5,
+          "author": "665f4a742669bb8f28755761"
+        }
+      }
+    }
+  }
 }
