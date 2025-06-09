@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "SET NODE_ENV=DEVELOPMENT& nodemon app.js",
-    "prod": "SET NODE_ENV=PRODUCTION& node app.js"
+    "dev": "cross-env NODE_ENV=DEVELOPMENT nodemon app.js",
+    "prod": "cross-env NODE_ENV=PRODUCTION node app.js"
   },
   "author": "Aiman Naim",
   "license": "ISC",
@@ -38,6 +38,7 @@
   },
   "keywords": [],
   "devDependencies": {
-    "nodemon": "^3.1.2"
+    "nodemon": "^3.1.2",
+    "cross-env": "^7.0.3"
   }
 }
