@@ -67,7 +67,7 @@ module.exports.updateCampground = async (req, res) => {
     const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground }, { new: true, runValidators: true });
 
     //* we take only the data from the image array and store it in the database ; ...imgs (spread operator)
-    const imgs = req.files.map(file => ({ url: file.path, filename: file.filename, originalname: file.originalname }))
+    const imgs = (req.files || []).map(file => ({ url: file.path, filename: file.filename, originalname: file.originalname }))
     //* we dont want to pass the image array as it is, we want to push the new images to the existing array
     campground.image.push(...imgs);
 
