@@ -11,6 +11,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('./model/user');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
@@ -145,9 +146,58 @@ app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 
+// Google OAuth Strategy
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: process.env.GOOGLE_CALLBACK_URL || '/auth/google/callback'
+},
+async (accessToken, refreshToken, profile, done) => {
+    try {
+        // Check if user already exists with this googleId
+        let user = await User.findOne({ googleId: profile.id });
+        
+        if (user) {
+            return done(null, user);
+        }
+        
+        // Check if user exists with this email
+        user = await User.findOne({ email: profile.emails[0].value });
+        
+        if (user) {
+            // Link Google account to existing user
+            user.googleId = profile.id;
+            await user.save();
+            return done(null, user);
+        }
+        
+        // Create new user
+        const newUser = new User({
+            googleId: profile.id,
+            username: profile.emails[0].value.split('@')[0] + '_' + Date.now(),
+            email: profile.emails[0].value
+        });
+        
+        await newUser.save();
+        done(null, newUser);
+    } catch (error) {
+        done(error, null);
+    }
+}));
+
 //?  how to store and unstore the user in the session
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.serializeUser((user, done) => {
+    done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+    try {
+        const user = await User.findById(id);
+        done(null, user);
+    } catch (error) {
+        done(error, null);
+    }
+});
 
 //? Middleware to show the flash messages in the views template
 app.use((req, res, next) => {

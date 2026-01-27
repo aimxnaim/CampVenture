@@ -23,4 +23,14 @@ router.route('/login')
 
 router.post('/logout', user.logoutUser);
 
+// Google OAuth routes
+router.get('/auth/google', 
+    passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+
+router.get('/auth/google/callback',
+    passport.authenticate('google', { failureRedirect: '/login', failureFlash: true }),
+    user.googleAuthCallback
+);
+
 module.exports = router;
