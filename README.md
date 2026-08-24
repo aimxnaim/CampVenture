@@ -33,6 +33,8 @@ Deployed on [Heroku](https://www.heroku.com/).
 
 - **Authentication:**
   - Implemented Passport.js for user authentication
+  - Local username/password authentication
+  - Google OAuth 2.0 authentication (see [GOOGLE_OAUTH_SETUP.md](GOOGLE_OAUTH_SETUP.md) for setup instructions)
 
 - **Data Validation and Sanitization:**
   - Used Joi for server-side validation and sanitization
@@ -72,7 +74,9 @@ Deployed on [Heroku](https://www.heroku.com/).
 
 ## Features
 
-- **User Authentication:** Secure login and registration with password hashing.
+- **User Authentication:** 
+  - Secure login and registration with password hashing
+  - Google OAuth 2.0 integration for seamless sign-in
 - **Campground Management:** CRUD operations for campgrounds.
 - **Reviews:** Users can leave reviews for campgrounds.
 - **Image Uploads:** Users can add multiple images when creating a new campground. Images are stored in Cloudinary.

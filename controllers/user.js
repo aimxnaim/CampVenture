@@ -49,3 +49,12 @@ module.exports.logoutUser = (req, res, next) => {
         }
     });
 };
+
+module.exports.googleAuth = (req, res) => {
+    // This is handled by passport
+};
+
+module.exports.googleAuthCallback = (req, res) => {
+    req.flash('success', `Welcome <strong>${req.user.username}</strong>!`);
+    res.redirect('/campground');
+};
