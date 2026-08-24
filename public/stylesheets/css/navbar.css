@@ -1,15 +1,16 @@
 .login-button {
-    background-color: #009970;
-    color: white;
+    background-color: #ffffff;
+    color: #009970;
     padding: 8px 20px;
     font-size: 14px;
     text-decoration: none;
     border-radius: 50px;
+    border: 1px solid #009970;
     transition: 0.3s background-color;
 }
 
 .login-button:hover {
-    background-color: #007d5e;
+    background-color: #e6f3ef;
 }
 
 .greetings-button {
