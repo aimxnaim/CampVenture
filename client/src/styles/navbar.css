@@ -1,0 +1,50 @@
+.navbar-brand {
+  gap: 0.75rem;
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0f172a, #2563eb);
+  color: #fff;
+}
+
+.brand-text {
+  letter-spacing: 0.05em;
+}
+
+.navbar-nav .nav-link {
+  font-weight: 500;
+  color: #475569;
+}
+
+.navbar-nav .nav-link.active {
+  color: #0f172a;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.navbar-actions .btn {
+  border-radius: 999px;
+  padding-inline: 1.25rem;
+}
+
+.mobile-nav-toggle {
+  border: none;
+  background: transparent;
+}
+
+@media (max-width: 991.98px) {
+  .navbar-actions {
+    margin-top: 1rem;
+  }
+}
