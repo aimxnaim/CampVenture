@@ -1,3 +1,4 @@
+
 /**
  * ============================================================================
  *  YOUR TASK #2  --  delete this comment block when you are done
@@ -122,3 +123,82 @@
  *
  * ============================================================================
  */
+
+import java.math.BigDecimal;
+
+public class Campground implements Owned {
+
+    private String title;
+    private final BigDecimal price;
+    private String description;
+    private final String location;
+    private final Coordinates coordinates;
+    private final User author;
+
+    public Campground(String title, BigDecimal price, String description,
+            String location, Coordinates coordinates, User author) {
+        if (title == null || title.isBlank()) {
+            throw new IllegalArgumentException("title is required");
+        }
+        if (price == null) {
+            throw new IllegalArgumentException("price is required");
+        }
+        if (price.compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("price cannot be negative, got " + price);
+        }
+        if (author == null) {
+            throw new IllegalArgumentException("a campground must have an author");
+        }
+        this.title = title;
+        this.price = price;
+        this.description = description;
+        this.location = location;
+        this.coordinates = coordinates;
+        this.author = author;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
+    @Override
+    public User author() {
+        return author;
+    }
+
+    public void setTitle(String title) {
+        if (title == null || title.isBlank()) {
+            throw new IllegalArgumentException("title is required");
+        }
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        if (description == null || description.isBlank()) {
+            throw new IllegalArgumentException("description is required");
+        }
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Campground[" + title + ", " + price + ", " + location + ", by " + author.getUsername() + "]";
+    }
+
+}

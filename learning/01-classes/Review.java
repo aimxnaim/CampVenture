@@ -88,3 +88,52 @@
  *
  * ============================================================================
  */
+
+public class Review implements Owned {
+
+    public static final int MIN_RATING = 1;
+    public static final int MAX_RATING = 5;
+
+    private final String body;
+    private final int rating;
+    private final User author;
+
+    public Review(String body, int rating, User author) {
+        if (body == null || body.isBlank()) {
+            throw new IllegalArgumentException("review body is required");
+        }
+        if (!isValidRating(rating)) {
+            throw new IllegalArgumentException(
+                    "rating must be between " + MIN_RATING + " and " + MAX_RATING + ", got " + rating);
+        }
+        if (author == null) {
+            throw new IllegalArgumentException("a review must have an author");
+        }
+        this.body = body;
+        this.rating = rating;
+        this.author = author;
+    }
+
+    public static boolean isValidRating(int rating) {
+        return rating >= MIN_RATING && rating <= MAX_RATING;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    @Override
+    public User author() {
+        return author;  
+    }
+
+    @Override
+    public String toString() {
+        return "Review[" + rating + " stars by " + author.getUsername() + ": \"" + body + "\"]";
+    }
+
+}

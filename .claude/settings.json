@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git tag *)",
+      "Bash(brew --version)",
+      "Read(//Users/aimannaim/**)",
+      "Bash(brew search *)",
+      "Bash(brew install *)",
+      "Bash(cat /private/tmp/claude-501/-Users-aimannaim-Documents-Repo-CampVenture/dbf0ba95-022a-49f1-bcf0-3be611ba8373/tasks/bxhs3q3u8.output; echo \"=== EXIT/STATE ===\"; ls -la /opt/homebrew/opt/openjdk@21 2>/dev/null | head -3 || echo \"not yet installed\")",
+      "Read(//opt/homebrew/opt/**)",
+      "Bash(brew list *)",
+      "Read(//opt/homebrew/Cellar/openjdk@21/21.0.12.1/libexec/openjdk.jdk/Contents/Home/bin/**)",
+      "Bash(java -version)",
+      "Bash(mvn -v)"
+    ]
+  }
+}
