@@ -7,7 +7,7 @@ Budget ~5–10 h/week. Estimated 55–65 h total.
 
 ## Checklist
 
-- [ ] **0a** Install JDK 21, Maven, IntelliJ — Hello World compiles (~3h)
+- [x] **0a** Install JDK 21, Maven, VS Code Java tooling (~3h)
 - [ ] **0b** Types, classes, records, interfaces (~5h)
 - [ ] **0c** Collections, generics, Optional, streams, exceptions (~5h)
 - [ ] **0d** JUnit 5 + AssertJ (~4h)
@@ -29,3 +29,4 @@ matters more than the first — it's what we come back to.
 | Date | Phase | Stopped at | Still fuzzy |
 |---|---|---|---|
 | 2026-09-08 | — | Design approved, `legacy-node` tag created | — |
+| 2026-09-08 | 0a | JDK 21 + Maven + VS Code Java/Spring packs installed; `java`/`javac`/`mvn` all on 21 | PATH vs JAVA_HOME — revisit if a tool ever reports the wrong version |

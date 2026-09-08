@@ -1,0 +1,32 @@
+{
+  // Which JDK the Java language server uses. This is INDEPENDENT of your shell's
+  // PATH and of JAVA_HOME -- the third place a Java version is configured, and the
+  // reason VS Code can report errors your terminal does not.
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-21",
+      "path": "/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home",
+      "default": true
+    }
+  ],
+
+  // Language level for loose .java files with no build file (learning/**).
+  // Once a Maven project exists, its pom.xml wins for files inside it.
+  "java.configuration.updateBuildConfiguration": "automatic",
+
+  // Organise imports on save. Java needs an explicit import for every type, and
+  // hand-managing them is tedious busywork.
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+
+  "[java]": {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true
+  },
+
+  "files.exclude": {
+    "**/*.class": true,
+    "**/target": true
+  }
+}

@@ -132,3 +132,16 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+# Java
+*.class
+target/
+.mvn/wrapper/maven-wrapper.jar
+
+# Java tooling caches
+.classpath
+.project
+.settings/
+
+# IDE — machine-local project config
+.idea/
+out/
